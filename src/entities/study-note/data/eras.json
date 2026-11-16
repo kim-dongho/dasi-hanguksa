@@ -1,0 +1,47 @@
+[
+  {
+    "id": "ancient",
+    "name": "선사·고조선",
+    "label": "01"
+  },
+  {
+    "id": "kingdoms",
+    "name": "삼국·가야",
+    "label": "02"
+  },
+  {
+    "id": "states",
+    "name": "남북국 시대",
+    "label": "03"
+  },
+  {
+    "id": "goryeo",
+    "name": "고려",
+    "label": "04"
+  },
+  {
+    "id": "joseon-early",
+    "name": "조선 전기",
+    "label": "05"
+  },
+  {
+    "id": "joseon-late",
+    "name": "조선 후기",
+    "label": "06"
+  },
+  {
+    "id": "opening",
+    "name": "개항기·대한제국",
+    "label": "07"
+  },
+  {
+    "id": "occupation",
+    "name": "일제강점기",
+    "label": "08"
+  },
+  {
+    "id": "modern",
+    "name": "현대",
+    "label": "09"
+  }
+]
