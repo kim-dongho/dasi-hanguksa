@@ -1,0 +1,6 @@
+tmp/**
+legacy/**
+node_modules/**
+.git/**
+
+docs/**
