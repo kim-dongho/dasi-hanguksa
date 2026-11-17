@@ -9,7 +9,7 @@ scan_exams={73,74,78,79}
 items=[];missing=[]
 for exam in range(80,69,-1):
  doc=fitz.open(root/f'{exam}-questions.pdf')
- anchors=[];lines_by_page={}
+ anchors=[];lines_by_page={};shared_passages=[]
  for page_index,page in enumerate(doc):
   width,height=page.rect.width,page.rect.height
   lines=[]
@@ -22,6 +22,10 @@ for exam in range(80,69,-1):
      text=''.join(s['text'] for s in line['spans']).replace('\x08','').strip()
      box=line['bbox'];lines.append(dict(text=text,x=box[0],y=box[1],right=box[2],bottom=box[3]))
   lines_by_page[page_index]=lines
+  for line in lines:
+   shared=re.search(r'\[\s*(\d{1,2})\s*[~～]\s*(\d{1,2})\s*\]',line['text'])
+   if shared:
+    shared_passages.append(dict(start=int(shared[1]),end=int(shared[2]),page=page_index,col=0 if line['x']/width<.5 else 1,top=line['y']-5))
   for line in lines:
    match=re.match(r'^(\d{1,2})\.',line['text'])
    x=line['x']/width
@@ -42,10 +46,21 @@ for exam in range(80,69,-1):
   next_y=[a['top']-2 for a in anchors if a['page']==anchor['page'] and a['col']==anchor['col'] and a['top']>anchor['top']+10]
   bottom=min(next_y+[.945*h])
   rect=fitz.Rect(left,top,right,bottom)
+  shared=next((s for s in shared_passages if s['page']==anchor['page'] and s['col']==anchor['col'] and s['start']<=anchor['number']<=s['end']),None)
+  shared_rect=None
+  if shared:
+   first=next(a for a in anchors if a['number']==shared['start'])
+   shared_rect=fitz.Rect(left,shared['top'],right,first['top']-2)
+
   number=anchor['number'];dest=out/f'{number}.webp'
-  if not dest.exists() or '--force' in sys.argv:
+  if not dest.exists() or '--force' in sys.argv or f'--force-id={exam}-{number}' in sys.argv:
    pix=page.get_pixmap(matrix=fitz.Matrix(2.5,2.5),clip=rect,alpha=False)
    image=Image.frombytes('RGB',(pix.width,pix.height),pix.samples)
+   if shared_rect:
+    spix=page.get_pixmap(matrix=fitz.Matrix(2.5,2.5),clip=shared_rect,alpha=False)
+    simage=Image.frombytes('RGB',(spix.width,spix.height),spix.samples)
+    combined=Image.new('RGB',(max(simage.width,image.width),simage.height+image.height+12),'white')
+    combined.paste(simage,(0,0));combined.paste(image,(0,simage.height+12));image=combined
    difference=ImageChops.difference(image,Image.new('RGB',image.size,'white')).convert('L').point(lambda v:255 if v>35 else 0)
    bounds=difference.getbbox()
    if bounds:
@@ -53,6 +68,8 @@ for exam in range(80,69,-1):
    image.save(dest,'WEBP',quality=92,method=4)
   with Image.open(dest) as image:iw,ih=image.size
   col_lines=[l for l in lines_by_page[anchor['page']] if top<=l['y']<bottom and left-4<=(l['x']+l['right'])/2<=right+4]
+  if shared_rect:
+   col_lines=[l for l in lines_by_page[anchor['page']] if shared_rect.y0<=l['y']<shared_rect.y1 and left-4<=(l['x']+l['right'])/2<=right+4]+col_lines
   text='\n'.join(l['text'] for l in sorted(col_lines,key=lambda l:(round(l['y']/4)*4,l['x'])))
   source=sources[exam]
   q=dict(id=f'{exam}-{number}',exam=exam,number=number,page=anchor['page']+1,answer=answers[number][0],points=answers[number][1],image=f'/questions/{exam}/{number}.webp',width=iw,height=ih,text=text,heading=anchor['heading'],source={'pageUrl':source['pageUrl'],'questions':{'url':source['questions']['url']},'answers':{'url':source['answers']['url']}})

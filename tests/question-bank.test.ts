@@ -78,11 +78,25 @@ describe('official exam bank', () => {
       ).toBe(true);
     }
   });
+  it('provides a nonempty explanation and five choice explanations for all eras', () => {
+    for (const q of questions) {
+      expect(q.explanation?.trim().length, q.id).toBeGreaterThan(0);
+      expect(q.choiceNotes, q.id).toHaveLength(5);
+      expect(
+        q.choiceNotes?.every((note) => note.trim().length > 0),
+        q.id,
+      ).toBe(true);
+    }
+  });
   it('classifies by the prompt and source material, never by distractors', () => {
     expect(questions.find((q) => q.id === '77-20')?.eras).toEqual(['joseon-early']);
     expect(questions.find((q) => q.id === '76-19')?.eras).toEqual(['joseon-early']);
     expect(questions.find((q) => q.id === '79-46')?.eras).toEqual(['occupation']);
     expect(questions.find((q) => q.id === '72-10')?.eras).toEqual(['kingdoms', 'states']);
+    expect(questions.find((q) => q.id === '74-23')?.eras).toEqual(['joseon-early']);
+    expect(questions.find((q) => q.id === '73-25')?.eras).toEqual(['joseon-early']);
+    for (const id of ['72-47', '72-48', '75-38', '71-30', '70-48'])
+      expect(questions.find((q) => q.id === id)?.eras, id).toEqual(['integrated']);
   });
   it('preserves official answers for the selected original questions', () => {
     for (const [id, answer] of Object.entries({

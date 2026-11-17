@@ -20,10 +20,10 @@ ranges={
 overrides={
 '80-43':[C,M], '79-24':[E], '79-46':[C], '78-10':[G],
 '77-8':[K], '77-12':[I], '77-27':[I], '77-32':[C],
-'76-15':[G], '76-46':[I], '75-7':[K], '75-38':[O], '75-39':[C],
-'73-4':[A], '73-9':[K], '73-19':[I], '73-24':[I],
-'72-10':[K,S], '72-48':[I], '72-50':[I],
-'71-7':[S], '71-12':[S], '71-18':[I], '71-30':[L], '71-37':[O], '71-45':[I],
+'76-15':[G], '76-46':[I], '75-7':[K], '75-38':[I], '75-39':[C],
+'74-23':[E], '73-25':[E], '70-48':[I], '73-4':[A], '73-9':[K], '73-19':[I], '73-24':[I],
+'72-10':[K,S], '72-47':[I], '72-48':[I], '72-50':[I],
+'71-7':[S], '71-12':[S], '71-18':[I], '71-30':[I], '71-37':[O], '71-45':[I],
 '70-10':[G], '70-22':[I], '70-50':[I]
 }
 # A distractor from another era never expands the question's era tags.
@@ -69,6 +69,8 @@ for c in curated:
 # Personal subject collection; era tags continue to follow each question's prompt.
 for id in ['76-22','75-25']:
  byid[id]['collections']=['joseon-society']
+byid['76-22']['explanation']='옥당은 홍문관의 별칭이다. 홍문관은 궁중 도서·문한과 국왕 자문을 맡았으며 사헌부·사간원과 함께 3사를 이루었다.'
+byid['75-25']['explanation']='장용영은 정조가 설치한 친위 군영이다. 조선 후기에는 한글 소설의 독자층이 넓어지고 세책가에서 책을 빌려 읽었다.'
 byid['76-22']['notes']=[dict(clue='옥당',answer='홍문관',memo='')]
 # Explanations are authored separately from official answers and personal memos.
 for id,notes in json.loads(Path('scripts/personal-choice-explanations.json').read_text()).items():
@@ -89,13 +91,23 @@ for review in json.loads(Path('scripts/modern-reforms-review.json').read_text())
  q.update({key:value for key,value in review.items() if key!='id'})
  q['collections']=['modern-reforms']
  assert len(q['choiceNotes'])==5
+# Coverage is checked against question targets rather than distractor eras.
+for id,review in json.loads(Path('scripts/occupation-explanations.json').read_text()).items():
+ assert len(review['choiceNotes'])==5
+ byid[id].update(review)
+for id,review in json.loads(Path('scripts/era-explanations.json').read_text()).items():
+ assert len(review['choiceNotes'])==5
+ byid[id].update(review)
 # Keep 550 regular questions plus the previously requested 69-21 in the personal collection.
 assert len([q for q in bank if q['exam']>=70])==550
 assert len(bank)==551
 for e in range(70,81):
  group=[q for q in bank if q['exam']==e]
  assert len(group)==50 and sum(q['points'] for q in group)==100
-for q in bank:q.pop('text',None)
+for q in bank:
+ assert q.get('explanation','').strip(),q['id']
+ assert len(q.get('choiceNotes',[]))==5 and all(note.strip() for note in q['choiceNotes']),q['id']
+ q.pop('text',None)
 Path('src/entities/question/data/questions.json').write_text(json.dumps(bank,ensure_ascii=False,separators=(',',':')))
 Path('scripts/era-classification.json').write_text(json.dumps({'ranges':ranges,'overrides':overrides},ensure_ascii=False,indent=2))
 print('550 regular questions + 1 retained personal question; early collection 10; late collection 9')

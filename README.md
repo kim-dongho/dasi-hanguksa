@@ -49,7 +49,7 @@
 | 메뉴            | 할 수 있는 일                                                          |
 | :-------------- | :--------------------------------------------------------------------- |
 | **오답노트**    | 헷갈린 개념에 직접 답을 쓰고 채점하기 · 기존 선지 메모 복습            |
-| **시대별 기출** | 같은 시대의 문제 이어 풀기 · 채점 후 등록된 보기별 해설 확인           |
+| **시대별 기출** | 같은 시대의 문제 이어 풀기 · 채점 후 모든 문항의 보기별 해설 확인      |
 | **회차별 기출** | 한 회차 50문항 풀기 · 해설 학습 / 실전 시험 선택                       |
 | **기출 오답**   | 틀린 문제를 정답이 가려진 상태로 다시 풀기 · 다시 맞히면 목록에서 제외 |
 
@@ -68,7 +68,7 @@
 | 정답·해설 | 채점 후 확인                  | 제출 전에는 숨김                |
 | 제출 후   | 보기별 해설과 내 메모 복습    | 총점 확인 후 해설 복습으로 이동 |
 
-> **해설 현황** · 개인 복습 31문항에 보기별 설명이 등록되어 있습니다. 나머지 기출의 보기별 해설은 아직 작성 중이며, 미등록 문항에는 해당 상태를 표시합니다.
+> **해설 현황** · 정규 550문항 전체에 문제 해설과 ①~⑤ 보기별 설명을 제공합니다. 별도로 보관한 개인 복습 69회 21번도 포함합니다. 해설은 공식 정답표와 원문을 대조하여 별도로 작성한 학습 자료입니다.
 
 ### 내가 모은 기출
 
@@ -94,13 +94,15 @@ npm run dev
 
 접속 주소: **http://127.0.0.1:8765/**
 
-| 명령                | 설명                                         |
-| :------------------ | :------------------------------------------- |
-| `npm run dev`       | 로컬 개발 서버 실행                          |
-| `npm test`          | 데이터 검증과 풀이 흐름 테스트               |
-| `npm run check:fsd` | 계층 의존 방향과 슬라이스 공개 API 검사      |
-| `npm run build`     | TypeScript 검사 및 배포 빌드                 |
-| `npm run preview`   | 빌드 결과 로컬 확인 — 개발 서버 종료 후 실행 |
+| 명령                   | 설명                                         |
+| :--------------------- | :------------------------------------------- |
+| `npm run dev`          | 로컬 개발 서버 실행                          |
+| `npm test`             | 데이터 검증과 풀이 흐름 테스트               |
+| `npm run check:fsd`    | 계층 의존 방향과 슬라이스 공개 API 검사      |
+| `npm run build`        | TypeScript 검사 및 배포 빌드                 |
+| `npm run format`       | Prettier로 소스 코드와 문서 포맷팅           |
+| `npm run format:check` | 포맷 규칙 검사                               |
+| `npm run preview`      | 빌드 결과 로컬 확인 — 개발 서버 종료 후 실행 |
 
 > 풀이 기록은 **같은 브라우저·같은 주소**에서 유지됩니다. 로컬 주소와 배포 주소, 다른 기기 사이에는 자동 동기화되지 않습니다.
 
@@ -128,20 +130,24 @@ docs/images/      README용 화면 캡처 — 앱 배포 산출물에 미포함
 <details>
 <summary><strong>문항 데이터 관리</strong></summary>
 
-| 파일                                        | 역할                                    |
-| :------------------------------------------ | :-------------------------------------- |
-| `src/entities/question/data/questions.json` | 문항, 정답, 배점, 시대, 출처, 개인 메모 |
-| `src/entities/study-note/data/`             | 직접 답을 쓰는 개념 오답노트            |
-| `scripts/fetch-exams.py`                    | 공식 PDF 다운로드                       |
-| `scripts/build-question-bank.py`            | PDF 문항 추출 · 스캔본 OCR              |
-| `scripts/finalize-question-bank.py`         | 시대 분류와 개인 복습 데이터 병합       |
-| `scripts/era-classification.json`           | 문항 시대 분류 규칙                     |
-| `scripts/personal-choice-explanations.json` | 개인 복습 보기별 설명                   |
-| `scripts/joseon-economy-review.json`        | 조선 경제 복습 데이터                   |
-| `scripts/daewongun-review.json`             | 흥선대원군 집권기 복습 데이터           |
-| `scripts/modern-reforms-review.json`        | 근대적 개혁 추진 복습 데이터            |
+| 파일                                        | 역할                                     |
+| :------------------------------------------ | :--------------------------------------- |
+| `src/entities/question/data/questions.json` | 문항, 정답, 배점, 시대, 출처, 개인 메모  |
+| `src/entities/study-note/data/`             | 직접 답을 쓰는 개념 오답노트             |
+| `scripts/fetch-exams.py`                    | 공식 PDF 다운로드                        |
+| `scripts/build-question-bank.py`            | PDF 문항 추출 · 스캔본 OCR               |
+| `scripts/finalize-question-bank.py`         | 시대 분류와 개인 복습 데이터 병합        |
+| `scripts/build-explanations.py`             | 해설 원고를 JSON으로 생성                |
+| `scripts/*-explanations.tsv`                | 시대별·일제강점기 문제 및 보기 해설 원고 |
+| `scripts/era-classification.json`           | 문항 시대 분류 규칙                      |
+| `scripts/personal-choice-explanations.json` | 개인 복습 보기별 설명                    |
+| `scripts/joseon-economy-review.json`        | 조선 경제 복습 데이터                    |
+| `scripts/daewongun-review.json`             | 흥선대원군 집권기 복습 데이터            |
+| `scripts/modern-reforms-review.json`        | 근대적 개혁 추진 복습 데이터             |
 
 원본 PDF와 중간 파일은 `tmp/`에 보관하며 Git·배포 대상에서 제외합니다. 데이터 재생성에는 PDF 처리용 Python 환경과 macOS Vision OCR 도구가 필요합니다.
+
+해설 원고 수정 후 `python3 scripts/build-explanations.py` → `python3 scripts/finalize-question-bank.py`를 실행합니다. 최종 병합 시 모든 문항의 해설과 보기 5개가 비어 있지 않은지 확인합니다.
 
 문항 이미지는 `public/questions/`의 WebP를 사용하며, 현재 열어 본 문제의 이미지를 불러옵니다. 전체 550장을 처음부터 내려받지 않습니다.
 
@@ -195,6 +201,9 @@ vercel --prod
 - [조일 통상 장정](https://contents.history.go.kr/front/hm/view.do?levelId=hm_115_0040)
 - [미쓰야 협정](https://contents.history.go.kr/front/hm/view.do?levelId=hm_125_0140)
 - [제1차 한일 협약](https://contents.history.go.kr/front/hm/view.do?levelId=hm_121_0150)
+- [극동 인민 대표 대회](https://contents.history.go.kr/mobile/tg/view.do?levelId=tg_004_2100)
+- [박달학원](https://encykorea.aks.ac.kr/Article/E0020621)
+- [6월 민주 항쟁](https://contents.history.go.kr/mobile/kc/view.do?levelId=kc_i500500)
 - [청의 내정 간섭](https://contents.history.go.kr/mobile/kc/view.do?code=kc_age_40&levelId=kc_i403200)
 
 </details>

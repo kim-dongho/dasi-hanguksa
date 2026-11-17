@@ -629,10 +629,19 @@
       "kingdoms"
     ],
     "75-38": [
-      "opening"
+      "integrated"
     ],
     "75-39": [
       "occupation"
+    ],
+    "74-23": [
+      "joseon-early"
+    ],
+    "73-25": [
+      "joseon-early"
+    ],
+    "70-48": [
+      "integrated"
     ],
     "73-4": [
       "ancient"
@@ -650,6 +659,9 @@
       "kingdoms",
       "states"
     ],
+    "72-47": [
+      "integrated"
+    ],
     "72-48": [
       "integrated"
     ],
@@ -666,7 +678,7 @@
       "integrated"
     ],
     "71-30": [
-      "joseon-late"
+      "integrated"
     ],
     "71-37": [
       "opening"
