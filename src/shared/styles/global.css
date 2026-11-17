@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @theme {
   --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
   --color-paper: #f7f6f1;
@@ -9,49 +9,153 @@
   --color-card: #fffefa;
 }
 @layer base {
-  body { @apply m-0 bg-paper font-sans text-sm leading-relaxed text-ink antialiased; }
-  button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
-  button { @apply cursor-pointer; }
-  button:disabled { @apply cursor-default opacity-40; }
-  button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible { @apply outline-2 outline-offset-3 outline-[#91a97b]; }
-  a { @apply underline-offset-4; }
-  input:not([type=radio]):not([type=checkbox]), select, textarea { @apply rounded-md border border-[#d5ddc8] bg-card px-3 py-2.5 text-ink; }
-  input[type=checkbox] { @apply accent-moss; }
-  fieldset { @apply m-0 min-w-0 border-0 p-0; }
-  dialog::backdrop { @apply bg-[#243025b0]; }
+  body {
+    @apply m-0 bg-paper font-sans text-sm leading-relaxed text-ink antialiased;
+  }
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button {
+    @apply cursor-pointer;
+  }
+  button:disabled {
+    @apply cursor-default opacity-40;
+  }
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  summary:focus-visible {
+    @apply outline-2 outline-offset-3 outline-[#91a97b];
+  }
+  a {
+    @apply underline-offset-4;
+  }
+  input:not([type='radio']):not([type='checkbox']),
+  select,
+  textarea {
+    @apply rounded-md border border-[#d5ddc8] bg-card px-3 py-2.5 text-ink;
+  }
+  input[type='checkbox'] {
+    @apply accent-moss;
+  }
+  fieldset {
+    @apply m-0 min-w-0 border-0 p-0;
+  }
+  dialog::backdrop {
+    @apply bg-[#243025b0];
+  }
 }
 @layer components {
-  .primary { @apply inline-flex items-center justify-center whitespace-nowrap rounded-md border-0 bg-moss px-4 py-2.5 text-xs text-white no-underline; }
-  .secondary { @apply inline-flex items-center justify-center whitespace-nowrap rounded-md border-0 bg-[#e7ecdf] px-4 py-2.5 text-xs text-[#657a55] no-underline; }
-  .text-button { @apply border-0 bg-transparent text-[11px] text-muted underline underline-offset-4; }
-  .eyebrow { @apply text-[10px] tracking-[2px] text-[#8b9b76]; }
-  .empty { @apply rounded-lg border border-dashed border-[#ccd6be] px-6 py-16 text-center text-muted; }
-  .muted { @apply text-muted; }
-  .green, .correct { @apply text-[#507a3f]; }
-  .rust, .wrong { @apply text-[#b07c58]; }
-  .result-dot { @apply text-xs text-[#b1bba6]; }
-  .result-dot.correct { @apply text-[#6d9859]; }
-  .result-dot.wrong { @apply text-[#b68460]; }
-  .home-card { @apply block rounded-lg border border-line bg-card px-5 py-6 no-underline transition-transform hover:-translate-y-0.5 hover:border-[#a8ba94] [&>h2]:mb-3 [&>h2]:mt-5 [&>h2]:flex [&>h2]:justify-between [&>h2]:text-xl [&>h2]:font-semibold [&>h2>span]:text-base [&>h2>span]:text-muted [&>p]:text-[11px] [&>p]:leading-6 [&>p]:text-muted [&>small]:mt-5 [&>small]:block [&>small]:border-t [&>small]:border-line [&>small]:pt-3 [&>small]:text-[10px] [&>small]:text-muted; }
-  .bank-card { @apply block rounded-lg border border-line bg-card px-5 py-6 no-underline hover:border-[#aaba94] [&>h2]:mb-3 [&>h2]:text-xl [&>h2]:font-semibold [&>p]:text-xs [&>p]:text-muted [&>small]:flex [&>small]:justify-between [&>small]:text-[10px] [&>small]:text-muted; }
-  .notebook-tabs button { @apply rounded-md border border-line bg-transparent px-4 py-2 text-xs text-muted; }
-  .notebook-tabs button.selected { @apply border-[#b5c7a1] bg-[#e4ecda] text-moss; }
-  .note-card { @apply mb-4 rounded-lg border border-line bg-card px-5 py-5 [&>h3]:mb-4 [&>h3]:mt-3 [&>h3]:text-sm [&>h3]:font-semibold [&>p]:text-xs [&>p]:text-muted; }
-  .note-card.done { @apply border-[#b5c99e]; }
-  .choice { @apply relative flex-1; }
-  .choice input { @apply absolute size-px opacity-0; }
-  .choice>span:not(.sr-only) { @apply grid h-9 cursor-pointer place-items-center rounded border border-[#d6e0c9] bg-card text-xl text-[#93a57d]; }
-  .choice input:checked+span { @apply border-2 border-[#6f8e58] bg-[#e4eed7] text-[#406332]; }
-  .choice input:focus-visible+span { @apply outline-2 outline-offset-2 outline-[#aac08f]; }
-  .choice.correct>span:not(.sr-only) { @apply border-[#91b478] bg-[#e5f1d9] text-[#527b3c]; }
-  .choice.wrong>span:not(.sr-only) { @apply border-[#d0a180] bg-[#f9ede1] text-[#b17850]; }
-  .answer-feedback { @apply mt-2 flex items-center gap-4 text-[11px] [&>span]:text-[10px]; }
-  .practice-nav-item { @apply flex shrink-0 items-center gap-2 whitespace-nowrap rounded border border-transparent bg-transparent px-2 py-2 text-left text-[11px] text-muted; }
-  .practice-nav-item.active { @apply border-[#bbcea4] bg-[#e2ecd6] text-moss; }
-  header nav a { @apply flex h-full min-h-10 items-center whitespace-nowrap border-b-2 border-transparent text-xs text-muted no-underline; }
-  header nav a.active { @apply border-[#6f8b55] font-semibold text-moss; }
-  header nav { @apply flex items-center gap-6 overflow-auto max-sm:w-full; }
-  .home-hero h1 { @apply mb-4 mt-3 text-4xl font-bold leading-relaxed tracking-tight md:text-5xl; }
-  .home-hero p { @apply text-xs leading-7 text-muted; }
+  .primary {
+    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md border-0 bg-moss px-4 py-2.5 text-xs text-white no-underline;
+  }
+  .secondary {
+    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md border-0 bg-[#e7ecdf] px-4 py-2.5 text-xs text-[#657a55] no-underline;
+  }
+  .text-button {
+    @apply border-0 bg-transparent text-[11px] text-muted underline underline-offset-4;
+  }
+  .eyebrow {
+    @apply text-[10px] tracking-[2px] text-[#8b9b76];
+  }
+  .empty {
+    @apply rounded-lg border border-dashed border-[#ccd6be] px-6 py-16 text-center text-muted;
+  }
+  .muted {
+    @apply text-muted;
+  }
+  .green,
+  .correct {
+    @apply text-[#507a3f];
+  }
+  .rust,
+  .wrong {
+    @apply text-[#b07c58];
+  }
+  .result-dot {
+    @apply text-xs text-[#b1bba6];
+  }
+  .result-dot.correct {
+    @apply text-[#6d9859];
+  }
+  .result-dot.wrong {
+    @apply text-[#b68460];
+  }
+  .home-card {
+    @apply block rounded-lg border border-line bg-card px-5 py-6 no-underline transition-transform hover:-translate-y-0.5 hover:border-[#a8ba94] [&>h2]:mb-3 [&>h2]:mt-5 [&>h2]:flex [&>h2]:justify-between [&>h2]:text-xl [&>h2]:font-semibold [&>h2>span]:text-base [&>h2>span]:text-muted [&>p]:text-[11px] [&>p]:leading-6 [&>p]:text-muted [&>small]:mt-5 [&>small]:block [&>small]:border-t [&>small]:border-line [&>small]:pt-3 [&>small]:text-[10px] [&>small]:text-muted;
+  }
+  .bank-card {
+    @apply block rounded-lg border border-line bg-card px-5 py-6 no-underline hover:border-[#aaba94] [&>h2]:mb-3 [&>h2]:text-xl [&>h2]:font-semibold [&>p]:text-xs [&>p]:text-muted [&>small]:flex [&>small]:justify-between [&>small]:text-[10px] [&>small]:text-muted;
+  }
+  .notebook-tabs button {
+    @apply rounded-md border border-line bg-transparent px-4 py-2 text-xs text-muted;
+  }
+  .notebook-tabs button.selected {
+    @apply border-[#b5c7a1] bg-[#e4ecda] text-moss;
+  }
+  .note-card {
+    @apply mb-4 rounded-lg border border-line bg-card px-5 py-5 [&>h3]:mb-4 [&>h3]:mt-3 [&>h3]:text-sm [&>h3]:font-semibold [&>p]:text-xs [&>p]:text-muted;
+  }
+  .note-card.done {
+    @apply border-[#b5c99e];
+  }
+  .choice {
+    @apply relative flex-1;
+  }
+  .choice input {
+    @apply absolute size-px opacity-0;
+  }
+  .choice > span:not(.sr-only) {
+    @apply grid h-9 cursor-pointer place-items-center rounded border border-[#d6e0c9] bg-card text-xl text-[#93a57d];
+  }
+  .choice input:checked + span {
+    @apply border-2 border-[#6f8e58] bg-[#e4eed7] text-[#406332];
+  }
+  .choice input:focus-visible + span {
+    @apply outline-2 outline-offset-2 outline-[#aac08f];
+  }
+  .choice.correct > span:not(.sr-only) {
+    @apply border-[#91b478] bg-[#e5f1d9] text-[#527b3c];
+  }
+  .choice.wrong > span:not(.sr-only) {
+    @apply border-[#d0a180] bg-[#f9ede1] text-[#b17850];
+  }
+  .answer-feedback {
+    @apply mt-2 flex items-center gap-4 text-[11px] [&>span]:text-[10px];
+  }
+  .practice-nav-item {
+    @apply flex shrink-0 items-center gap-2 whitespace-nowrap rounded border border-transparent bg-transparent px-2 py-2 text-left text-[11px] text-muted;
+  }
+  .practice-nav-item.active {
+    @apply border-[#bbcea4] bg-[#e2ecd6] text-moss;
+  }
+  header nav a {
+    @apply flex h-full min-h-10 items-center whitespace-nowrap border-b-2 border-transparent text-xs text-muted no-underline;
+  }
+  header nav a.active {
+    @apply border-[#6f8b55] font-semibold text-moss;
+  }
+  header nav {
+    @apply flex items-center gap-6 overflow-auto max-sm:w-full;
+  }
+  .home-hero h1 {
+    @apply mb-4 mt-3 text-4xl font-bold leading-relaxed tracking-tight md:text-5xl;
+  }
+  .home-hero p {
+    @apply text-xs leading-7 text-muted;
+  }
 }
-@media print { header, .practice-top, .practice-nav, .memo-pad { display:none; } }
+@media print {
+  header,
+  .practice-top,
+  .practice-nav,
+  .memo-pad {
+    display: none;
+  }
+}

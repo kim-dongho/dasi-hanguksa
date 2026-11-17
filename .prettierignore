@@ -1,0 +1,9 @@
+node_modules/
+dist/
+tmp/
+.vercel/
+public/
+docs/images/
+package-lock.json
+src/entities/question/data/questions.json
+scripts/era-classification.json

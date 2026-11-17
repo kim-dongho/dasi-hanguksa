@@ -1,5 +1,5 @@
 import { useStoredState } from '@/shared/lib';
-export type Result = {selected: number};
+export type Result = { selected: number };
 export type Results = Record<string, Result>;
 const empty: Results = {};
 export function useQuestionProgress() {
@@ -7,20 +7,25 @@ export function useQuestionProgress() {
   const results: Results = {};
   if (raw && typeof raw === 'object' && !Array.isArray(raw)) {
     for (const [id, result] of Object.entries(raw)) {
-      if (Number.isInteger(result?.selected) && result.selected >= 1 && result.selected <= 5) results[id] = result;
+      if (Number.isInteger(result?.selected) && result.selected >= 1 && result.selected <= 5)
+        results[id] = result;
     }
   }
   const answer = (id: string, selected: number) => {
     if (!Number.isInteger(selected) || selected < 1 || selected > 5) return;
-    update({...results, [id]: {selected}});
+    update({ ...results, [id]: { selected } });
   };
-  const retry = (id: string) => { const next = {...results}; delete next[id]; update(next); };
+  const retry = (id: string) => {
+    const next = { ...results };
+    delete next[id];
+    update(next);
+  };
   const gradeAnswers = (answers: Record<string, number>) => {
-    const next = {...results};
-    for (const [id,selected] of Object.entries(answers)) {
-      if (Number.isInteger(selected) && selected>=1 && selected<=5) next[id]={selected};
+    const next = { ...results };
+    for (const [id, selected] of Object.entries(answers)) {
+      if (Number.isInteger(selected) && selected >= 1 && selected <= 5) next[id] = { selected };
     }
     update(next);
   };
-  return {results, answer, retry, saved, gradeAnswers};
+  return { results, answer, retry, saved, gradeAnswers };
 }
