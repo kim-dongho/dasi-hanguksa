@@ -52,7 +52,7 @@ export function ReviewNoteCard({
       ) : null}
       {visible ? (
         <>
-          <div className="flex items-center gap-3 text-xs [&>strong]:text-base [&>strong]:text-moss [&>del]:text-[#bf937b]">
+          <div className="flex items-center gap-3 text-xs [&>strong]:text-base [&>strong]:text-moss [&>del]:text-negative">
             <span className="muted">{quiz ? '정답' : '원래 내 답'}</span>
             {!quiz ? <del>{note.wrong}</del> : null}
             <strong>{note.answer}</strong>
@@ -62,7 +62,7 @@ export function ReviewNoteCard({
             <p>
               <b>혼동 주의</b> {note.contrast}
             </p>
-            <div className="rounded bg-[#eff4e6] px-3 py-2 text-[#6b8751]">{note.memory}</div>
+            <div className="rounded bg-panel px-3 py-2 text-accent">{note.memory}</div>
             <a href={note.source} target="_blank" rel="noreferrer">
               해설 근거 ↗
             </a>

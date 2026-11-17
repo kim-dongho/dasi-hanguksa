@@ -10,7 +10,7 @@ export function ExamAnswer({
   onSelect: (value: number) => void;
 }) {
   return (
-    <section className="border-t border-line bg-[#fafcf5] px-3.5 py-3">
+    <section className="border-t border-line bg-panel px-3.5 py-3">
       <fieldset>
         <legend className="mb-2 text-xs text-muted">
           실전 답안 · 제출 전까지 변경할 수 있어요

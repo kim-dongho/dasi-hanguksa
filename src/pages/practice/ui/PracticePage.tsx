@@ -155,7 +155,7 @@ export function PracticePage() {
         </aside>
         <div className="min-w-0">
           <section className="overflow-hidden rounded-lg border border-line bg-white">
-            <div className="flex h-8 items-center justify-between gap-2 border-b border-[#f0f2e9] bg-card px-3.5 text-[9px] text-muted">
+            <div className="flex h-8 items-center justify-between gap-2 border-b border-line bg-card px-3.5 text-[9px] text-muted">
               <span>공식 원문 · 문제·지문·보기·배점 포함</span>
               <button className="text-button" onClick={() => zoom.current?.showModal()}>
                 크게 보기 ⤢
@@ -224,10 +224,7 @@ export function PracticePage() {
                 <details>
                   <summary>네가 헷갈렸던 선지 메모</summary>
                   {current.notes.map((note, i) => (
-                    <div
-                      className="mt-2 rounded bg-[#f0f4e7] px-3 py-2.5 text-xs text-[#7e9268]"
-                      key={i}
-                    >
+                    <div className="mt-2 rounded bg-panel px-3 py-2.5 text-xs text-accent" key={i}>
                       <strong>
                         {note.clue} → {note.answer}
                       </strong>
@@ -260,7 +257,7 @@ export function PracticePage() {
         />
       </div>
       <dialog
-        className="m-auto h-[96dvh] max-h-none w-[98vw] max-w-none overflow-hidden rounded-lg border border-[#c4d2b5] bg-card p-0"
+        className="m-auto h-[96dvh] max-h-none w-[98vw] max-w-none overflow-hidden rounded-lg border border-control bg-card p-0"
         ref={zoom}
       >
         <div className="flex h-12 items-center justify-between border-b border-line px-4 [&>h2]:text-sm [&>h2]:font-semibold">

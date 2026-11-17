@@ -73,7 +73,7 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
                 <span className="float-right text-[10px] text-muted">{group.items.length}문항</span>
                 <h2>{group.title}</h2>
                 <p>{group.description}</p>
-                <div className="mb-3 mt-6 h-1 overflow-hidden rounded bg-[#e6eadf] [&>span]:block [&>span]:h-full [&>span]:bg-[#88a36e]">
+                <div className="mb-3 mt-6 h-1 overflow-hidden rounded bg-track [&>span]:block [&>span]:h-full [&>span]:bg-moss">
                   <span
                     style={{
                       width: `${group.items.length ? (answered / group.items.length) * 100 : 0}%`,
@@ -120,7 +120,7 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
                 : '해당 문항이 없어요.'}
             </div>
           ) : (
-            <div className="overflow-hidden rounded-lg border border-line bg-card [&>a]:flex [&>a]:items-center [&>a]:gap-4 [&>a]:border-b [&>a]:border-line [&>a]:px-4 [&>a]:py-4 [&>a]:text-xs [&>a]:no-underline [&>a:hover]:bg-[#f0f4e7] [&>a:last-child]:border-0 [&_small]:ml-auto [&_small]:text-muted [&_strong]:font-medium [&>a>span:nth-last-child(3)]:text-muted max-sm:[&>a>span:nth-last-child(3)]:hidden">
+            <div className="overflow-hidden rounded-lg border border-line bg-card [&>a]:flex [&>a]:items-center [&>a]:gap-4 [&>a]:border-b [&>a]:border-line [&>a]:px-4 [&>a]:py-4 [&>a]:text-xs [&>a]:no-underline [&>a:hover]:bg-panel [&>a:last-child]:border-0 [&_small]:ml-auto [&_small]:text-muted [&_strong]:font-medium [&>a>span:nth-last-child(3)]:text-muted max-sm:[&>a>span:nth-last-child(3)]:hidden">
               {filtered.map((q) => (
                 <Link
                   key={q.id}

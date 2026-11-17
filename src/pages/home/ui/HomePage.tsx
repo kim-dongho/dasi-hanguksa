@@ -69,9 +69,9 @@ export function HomePage() {
       <section className="grid grid-cols-2 gap-4 lg:grid-cols-4" aria-label="학습 메뉴">
         {entries.map((entry) => (
           <Link to={entry.to} className="home-card" key={entry.to}>
-            <div className="flex items-start justify-between text-[10px] tracking-widest text-[#93a37e]">
+            <div className="flex items-start justify-between text-[10px] tracking-widest text-accent">
               <span>{entry.n}</span>
-              <span className="text-3xl text-[#adbba0]">{entry.symbol}</span>
+              <span className="text-3xl text-faint">{entry.symbol}</span>
             </div>
             <h2>
               {entry.title}
@@ -82,7 +82,7 @@ export function HomePage() {
           </Link>
         ))}
       </section>
-      <section className="mt-6 flex flex-wrap items-center gap-3 rounded-lg border border-line bg-[#eef2e5] px-5 py-4">
+      <section className="mt-6 flex flex-wrap items-center gap-3 rounded-lg border border-line bg-panel px-5 py-4">
         <span className="mr-2 text-xs font-semibold text-moss">내가 모은 기출</span>
         <Link className="secondary" to="/practice?collection=joseon-early">
           조선 전기 10문항 →
