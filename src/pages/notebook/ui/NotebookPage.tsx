@@ -69,6 +69,9 @@ export function NotebookPage() {
         <Link className="secondary" to="/practice?collection=1920s-flow">
           1920~1930년대 초 주요 흐름 (6문항) →
         </Link>
+        <Link className="secondary" to="/practice?collection=independence">
+          독립운동 (14문항) →
+        </Link>
       </div>
       {choices ? (
         <div className="curated-notes">
