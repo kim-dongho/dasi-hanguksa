@@ -1,14 +1,20 @@
 import { useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { questions } from '@/entities/question';
-import { AnswerQuestion, ExamAnswer, useQuestionProgress } from '@/features/answer-question';
+import {
+  AnswerQuestion,
+  ExamAnswer,
+  StudyProgress,
+  useQuestionProgress,
+} from '@/features/answer-question';
 import { ChoiceMemo } from '@/features/choice-memo';
 export function PracticePage() {
   const [params, setParams] = useSearchParams();
-  const { results, gradeAnswers } = useQuestionProgress();
+  const { results, gradeAnswers, saved } = useQuestionProgress();
   const isExam = params.get('mode') === 'exam' && !params.get('era');
   const [draft, setDraft] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [retrying, setRetrying] = useState<string[]>([]);
   const [reviewed, setReviewed] = useState<string[]>([]);
   const [pool] = useState(() =>
     questions
@@ -39,6 +45,7 @@ export function PracticePage() {
       },
       { replace: true },
     );
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
   const answered = isExam
     ? pool.filter((q) => draft[q.id]).length
@@ -53,14 +60,15 @@ export function PracticePage() {
         </div>
       </main>
     );
-  const hidePreviousResult = !!params.get('wrong') && !reviewed.includes(current.id);
+  const hidePreviousResult =
+    retrying.includes(current.id) || (!!params.get('wrong') && !reviewed.includes(current.id));
   const graded = !isExam && !hidePreviousResult && !!results[current.id];
   const score = pool.reduce((sum, q) => sum + (draft[q.id] === q.answer ? q.points : 0), 0);
   const maxScore = pool.reduce((sum, q) => sum + q.points, 0);
   const studyParams = new URLSearchParams(params);
   studyParams.delete('mode');
   return (
-    <main className={`mx-auto max-w-[1600px] px-4 pb-4 ${graded ? 'is-graded' : ''}`}>
+    <main className={`mx-auto max-w-[1600px] px-4 pb-28 ${graded ? 'is-graded' : ''}`}>
       <div className="flex min-h-[62px] flex-wrap items-center justify-between gap-3 py-2 [&>div:first-child]:flex [&>div:first-child]:items-baseline [&>div:first-child]:gap-4 [&_h1]:text-lg [&_h1]:font-bold [&_small]:ml-2 [&_small]:text-[10px] [&_small]:font-normal [&_small]:text-muted [&_a]:text-xs [&_a]:text-muted [&_a]:no-underline">
         <div>
           <Link to={params.get('wrong') ? '/wrong' : params.get('era') ? '/eras' : '/exams'}>
@@ -70,25 +78,7 @@ export function PracticePage() {
             {current.exam}회 {current.number}번 <small>심화 · {current.points}점</small>
           </h1>
         </div>
-        <div className="flex items-center gap-2 [&>span]:mr-2 [&>span]:text-[11px] [&>span]:text-muted [&>.secondary]:px-3 [&>.secondary]:py-1.5 [&>.secondary]:text-[11px]">
-          <span>
-            {index + 1} / {pool.length}
-          </span>
-          <button
-            className="secondary"
-            disabled={index === 0}
-            onClick={() => navigate(pool[index - 1].id)}
-          >
-            ← 이전
-          </button>
-          <button
-            className="secondary"
-            disabled={index === pool.length - 1}
-            onClick={() => navigate(pool[index + 1].id)}
-          >
-            다음 →
-          </button>
-        </div>
+        {!isExam ? <StudyProgress questions={pool} results={results} /> : null}
       </div>
       {isExam ? (
         <section
@@ -102,6 +92,11 @@ export function PracticePage() {
                 제출 완료 · {score} / {maxScore}점 ·{' '}
                 {pool.filter((q) => draft[q.id] === q.answer).length} / {pool.length}문항 정답
               </span>
+              {!saved ? (
+                <p role="alert" className="text-accent">
+                  결과를 저장하지 못했습니다. 새로고침하면 사라질 수 있습니다.
+                </p>
+              ) : null}
               <Link className="secondary ml-auto" to={`/practice?${studyParams}`}>
                 보기별 해설 복습 →
               </Link>
@@ -125,7 +120,7 @@ export function PracticePage() {
           )}
         </section>
       ) : (
-        <p className="mb-2 text-xs text-muted">해설 학습 · 채점 후 보기별 해설을 확인하세요.</p>
+        <p className="sr-only">해설 학습 · 채점 후 보기별 해설을 확인하세요.</p>
       )}
       <div className="grid grid-cols-1 items-start gap-4 min-[900px]:grid-cols-[126px_minmax(0,1fr)_240px] min-[1400px]:grid-cols-[138px_minmax(0,1fr)_265px]">
         <aside className="min-[900px]:sticky min-[900px]:top-4 [&>nav]:flex [&>nav]:gap-1 [&>nav]:overflow-auto [&>nav]:p-1 max-[899px]:[&>nav]:flex-row min-[900px]:[&>nav]:max-h-[calc(100dvh-190px)] min-[900px]:[&>nav]:flex-col">
@@ -162,7 +157,7 @@ export function PracticePage() {
               </button>
             </div>
             <button
-              className="flex h-auto min-h-0 w-full cursor-zoom-in items-center justify-center border-0 bg-white p-2.5 min-[900px]:h-[calc(100dvh-262px)] min-[900px]:min-h-[300px] [&>img]:block [&>img]:h-auto [&>img]:w-full [&>img]:max-w-full [&>img]:object-contain min-[900px]:[&>img]:max-h-full min-[900px]:[&>img]:w-auto"
+              className={`flex h-auto min-h-0 w-full cursor-zoom-in items-center justify-center border-0 bg-white p-2.5 ${isExam ? 'min-[900px]:h-[calc(100dvh-400px)]' : 'min-[900px]:h-[calc(100dvh-326px)]'} min-[900px]:min-h-[300px] [&>img]:block [&>img]:h-auto [&>img]:w-full [&>img]:max-w-full [&>img]:object-contain min-[900px]:[&>img]:max-h-full min-[900px]:[&>img]:w-auto`}
               aria-label={`${current.exam}회 ${current.number}번 원문 확대`}
               onClick={() => zoom.current?.showModal()}
             >
@@ -185,11 +180,13 @@ export function PracticePage() {
                 key={current.id}
                 question={current}
                 hidePreviousResult={hidePreviousResult}
-                onGrade={() =>
+                onRetry={() => setRetrying((previous) => [...previous, current.id])}
+                onGrade={() => {
+                  setRetrying((previous) => previous.filter((id) => id !== current.id));
                   setReviewed((previous) =>
                     previous.includes(current.id) ? previous : [...previous, current.id],
-                  )
-                }
+                  );
+                }}
               />
             )}
           </section>
@@ -255,6 +252,30 @@ export function PracticePage() {
           questionId={current.id}
           label={`${current.exam}회 ${current.number}번`}
         />
+      </div>
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-20 mx-auto grid max-w-[1600px] grid-cols-1 gap-4 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-2 min-[900px]:grid-cols-[126px_minmax(0,1fr)_240px] min-[1400px]:grid-cols-[138px_minmax(0,1fr)_265px]">
+        <nav
+          aria-label="문제 이동"
+          className="pointer-events-auto flex items-center justify-between gap-3 rounded-lg border border-control bg-card p-2 shadow-lg min-[900px]:col-start-2"
+        >
+          <button
+            className="secondary min-h-11 min-w-24 sm:min-w-32"
+            disabled={index === 0}
+            onClick={() => navigate(pool[index - 1].id)}
+          >
+            ← 이전
+          </button>
+          <span className="text-center text-xs tabular-nums text-muted">
+            {index + 1} / {pool.length}
+          </span>
+          <button
+            className="primary min-h-11 min-w-24 sm:min-w-32"
+            disabled={index === pool.length - 1}
+            onClick={() => navigate(pool[index + 1].id)}
+          >
+            다음 →
+          </button>
+        </nav>
       </div>
       <dialog
         className="m-auto h-[96dvh] max-h-none w-[98vw] max-w-none overflow-hidden rounded-lg border border-control bg-card p-0"

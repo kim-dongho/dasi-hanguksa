@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { PracticePage } from '@/pages/practice';
@@ -202,6 +202,157 @@ describe('original practice flow', () => {
     ).toHaveLength(1);
     expect(screen.getByText('1 / 9')).toBeInTheDocument();
   });
+  it('updates era totals from latest grades, excluding other eras and retaining them after remount', async () => {
+    const user = userEvent.setup();
+    localStorage.setItem(
+      'original-exam-questions-v1',
+      JSON.stringify({
+        '77-20': { selected: 5 },
+        '76-19': { selected: 1 },
+        '80-11': { selected: 1 },
+      }),
+    );
+    const renderPractice = () =>
+      render(
+        <MemoryRouter initialEntries={['/practice?era=joseon-early&q=76-19']}>
+          <PracticePage />
+        </MemoryRouter>,
+      );
+    const expectProgress = (answered: string, correct: string, score: string) => {
+      const progress = within(screen.getByLabelText('학습 현황'));
+      expect(progress.getByText('풀이').nextElementSibling).toHaveTextContent(answered);
+      expect(progress.getByText('정답').nextElementSibling).toHaveTextContent(correct);
+      expect(progress.getByText('점수').nextElementSibling).toHaveTextContent(score);
+    };
+    const view = renderPractice();
+    expectProgress('2 / 41문항', '1 / 41문항', '3 / 88점');
+    await user.click(screen.getByRole('button', { name: '다시 풀기' }));
+    expectProgress('2 / 41문항', '1 / 41문항', '3 / 88점');
+    await user.click(screen.getByRole('radio', { name: /^4번/ }));
+    await user.click(screen.getByRole('button', { name: '채점하기' }));
+    expectProgress('2 / 41문항', '2 / 41문항', '6 / 88점');
+    view.unmount();
+    renderPractice();
+    expectProgress('2 / 41문항', '2 / 41문항', '6 / 88점');
+  });
+  it('shows era progress on both the archive card and selected question list', () => {
+    localStorage.setItem(
+      'original-exam-questions-v1',
+      JSON.stringify({ '77-20': { selected: 5 } }),
+    );
+    const view = render(
+      <MemoryRouter>
+        <QuestionBankPage mode="era" />
+      </MemoryRouter>,
+    );
+    const card = screen.getByRole('heading', { name: '조선 전기' }).closest('a')!;
+    expect(within(card).getByText('점수').nextElementSibling).toHaveTextContent('3 / 88점');
+    view.unmount();
+    render(
+      <MemoryRouter initialEntries={['/eras?era=joseon-early']}>
+        <QuestionBankPage mode="era" />
+      </MemoryRouter>,
+    );
+    expect(
+      within(screen.getByLabelText('학습 현황')).getByText('정답').nextElementSibling,
+    ).toHaveTextContent('1 / 41문항');
+  });
+  it('disables navigation at the boundaries and returns to the top for a new question', async () => {
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter initialEntries={['/practice?collection=joseon-society']}>
+        <PracticePage />
+      </MemoryRouter>,
+    );
+    const navigation = within(screen.getByRole('navigation', { name: '문제 이동' }));
+    expect(navigation.getByRole('button', { name: '← 이전' })).toBeDisabled();
+    await user.click(navigation.getByRole('button', { name: '다음 →' }));
+    expect(navigation.getByRole('button', { name: '다음 →' })).toBeDisabled();
+    expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'instant' });
+    await user.click(navigation.getByRole('button', { name: '← 이전' }));
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('76회 22번');
+  });
+  it('keeps a wrong result after abandoning a retry and replaces it only on grading', async () => {
+    const user = userEvent.setup();
+    localStorage.setItem(
+      'original-exam-questions-v1',
+      JSON.stringify({ '77-20': { selected: 1 } }),
+    );
+    const view = render(
+      <MemoryRouter initialEntries={['/practice?collection=joseon-early&q=77-20']}>
+        <PracticePage />
+      </MemoryRouter>,
+    );
+    await user.click(screen.getByRole('button', { name: '다시 풀기' }));
+    expect(screen.queryByText('채점 후 복습')).not.toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: /^1번/ })).not.toBeChecked();
+    expect(JSON.parse(localStorage.getItem('original-exam-questions-v1')!)['77-20']).toEqual({
+      selected: 1,
+    });
+    view.unmount();
+    const list = render(
+      <MemoryRouter>
+        <QuestionBankPage mode="wrong" />
+      </MemoryRouter>,
+    );
+    expect(screen.getByText('77회 20번')).toBeInTheDocument();
+    list.unmount();
+    render(
+      <MemoryRouter initialEntries={['/practice?collection=joseon-early&q=77-20']}>
+        <PracticePage />
+      </MemoryRouter>,
+    );
+    expect(screen.getByText('오답 · 정답 ⑤번')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: '다시 풀기' }));
+    await user.click(screen.getByRole('radio', { name: /^5번/ }));
+    await user.click(screen.getByRole('button', { name: '채점하기' }));
+    expect(JSON.parse(localStorage.getItem('original-exam-questions-v1')!)['77-20']).toEqual({
+      selected: 5,
+    });
+  });
+  it.each(['study', 'exam'])(
+    'warns on failed %s result storage and retains results in this tab',
+    async (mode) => {
+      const user = userEvent.setup();
+      const set = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+        throw new Error('quota');
+      });
+      const url =
+        mode === 'exam'
+          ? '/practice?collection=joseon-society&mode=exam'
+          : '/practice?collection=joseon-society';
+      try {
+        const view = render(
+          <MemoryRouter initialEntries={[url]}>
+            <PracticePage />
+          </MemoryRouter>,
+        );
+        await user.click(screen.getByRole('radio', { name: /^2번/ }));
+        if (mode === 'exam') {
+          await user.click(screen.getByRole('button', { name: '다음 →' }));
+          await user.click(screen.getByRole('radio', { name: /^1번/ }));
+          await user.click(screen.getByRole('button', { name: '시험 제출·채점' }));
+          expect(screen.getByText(/제출 완료 · 3 \/ 3점/)).toBeInTheDocument();
+        } else {
+          await user.click(screen.getByRole('button', { name: '채점하기' }));
+          expect(screen.getByText('정답 · 2점')).toBeInTheDocument();
+        }
+        expect(screen.getByRole('alert')).toHaveTextContent(
+          '결과를 저장하지 못했습니다. 새로고침하면 사라질 수 있습니다.',
+        );
+        view.unmount();
+        render(
+          <MemoryRouter initialEntries={['/practice?collection=joseon-society']}>
+            <PracticePage />
+          </MemoryRouter>,
+        );
+        expect(screen.getByText('정답 · 2점')).toBeInTheDocument();
+        expect(screen.getByRole('alert')).toBeInTheDocument();
+      } finally {
+        set.mockRestore();
+      }
+    },
+  );
   it('warns instead of losing the current memo when browser storage is unavailable', () => {
     const set = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
       throw new Error('quota');

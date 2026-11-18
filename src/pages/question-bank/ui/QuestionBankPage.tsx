@@ -1,6 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { questions, eras } from '@/entities/question';
-import { useQuestionProgress } from '@/features/answer-question';
+import { StudyProgress, useQuestionProgress } from '@/features/answer-question';
 export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
   const { results } = useQuestionProgress();
   const [params, setParams] = useSearchParams();
@@ -61,7 +61,7 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
         </div>
       ) : null}
       {mode !== 'wrong' && !selected ? (
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {groups.map((group) => {
             const answered = group.items.filter((q) => results[q.id]).length;
             return (
@@ -80,7 +80,10 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
                     }}
                   />
                 </div>
-                <small>
+                {mode === 'era' ? (
+                  <StudyProgress questions={group.items} results={results} />
+                ) : null}
+                <small className="mt-4">
                   {answered} / {group.items.length} 풀이 <span>열어보기 →</span>
                 </small>
               </Link>
@@ -113,6 +116,11 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
               </Link>
             ) : null}
           </div>
+          {mode === 'era' && filtered.length ? (
+            <div className="mb-5 rounded-lg border border-line bg-card px-5 py-4">
+              <StudyProgress questions={filtered} results={results} />
+            </div>
+          ) : null}
           {!filtered.length ? (
             <div className="empty">
               {mode === 'wrong'

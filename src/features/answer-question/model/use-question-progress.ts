@@ -15,11 +15,6 @@ export function useQuestionProgress() {
     if (!Number.isInteger(selected) || selected < 1 || selected > 5) return;
     update({ ...results, [id]: { selected } });
   };
-  const retry = (id: string) => {
-    const next = { ...results };
-    delete next[id];
-    update(next);
-  };
   const gradeAnswers = (answers: Record<string, number>) => {
     const next = { ...results };
     for (const [id, selected] of Object.entries(answers)) {
@@ -27,5 +22,5 @@ export function useQuestionProgress() {
     }
     update(next);
   };
-  return { results, answer, retry, saved, gradeAnswers };
+  return { results, answer, saved, gradeAnswers };
 }

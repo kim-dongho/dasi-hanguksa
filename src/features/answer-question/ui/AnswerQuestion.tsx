@@ -6,12 +6,14 @@ export function AnswerQuestion({
   question: q,
   hidePreviousResult = false,
   onGrade,
+  onRetry,
 }: {
   question: Question;
   hidePreviousResult?: boolean;
   onGrade?: () => void;
+  onRetry: () => void;
 }) {
-  const { results, answer, retry } = useQuestionProgress();
+  const { results, answer, saved } = useQuestionProgress();
   const [selected, setSelected] = useState<number>();
   const feedback = useRef<HTMLDivElement>(null);
   const result = hidePreviousResult ? undefined : results[q.id];
@@ -58,7 +60,7 @@ export function AnswerQuestion({
             type="button"
             onClick={() => {
               setSelected(undefined);
-              retry(q.id);
+              onRetry();
             }}
           >
             다시 풀기
@@ -69,6 +71,11 @@ export function AnswerQuestion({
           </button>
         )}
       </form>
+      {!saved ? (
+        <p role="alert" className="mt-2 text-xs text-accent">
+          결과를 저장하지 못했습니다. 새로고침하면 사라질 수 있습니다.
+        </p>
+      ) : null}
       {result ? (
         <div
           ref={feedback}

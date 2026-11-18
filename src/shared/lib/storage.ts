@@ -11,7 +11,7 @@ export function readStored<T>(key: string, fallback: T): T {
 }
 export function useStoredState<T>(key: string, fallback: T) {
   const [value, setValue] = useState<T>(() => readStored(key, fallback));
-  const [saved, setSaved] = useState(true);
+  const [saved, setSaved] = useState(() => !memory.has(key));
   useEffect(() => {
     const sync = (event: Event) => {
       if (event instanceof StorageEvent) {
@@ -19,6 +19,7 @@ export function useStoredState<T>(key: string, fallback: T) {
         memory.delete(key);
       } else if ((event as CustomEvent<string>).detail !== key) return;
       setValue(readStored(key, fallback));
+      setSaved(!memory.has(key));
     };
     window.addEventListener('storage', sync);
     window.addEventListener(changeEvent, sync);
