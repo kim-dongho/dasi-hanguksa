@@ -99,7 +99,7 @@ for id,review in json.loads(Path('scripts/era-explanations.json').read_text()).i
  assert len(review['choiceNotes'])==5
  byid[id].update(review)
 # Personal additions may include official questions outside the regular exam range.
-for filename,collection in [('empire-review.json','donghak-empire'),('sovereignty-review.json','sovereignty'),('opening-culture-review.json','opening-culture')]:
+for filename,collection in [('empire-review.json','donghak-empire'),('sovereignty-review.json','sovereignty'),('opening-culture-review.json','opening-culture'),('1920s-review.json','1920s-flow')]:
  for review in json.loads((Path('scripts')/filename).read_text()):
   q=byid.get(review['id'])
   if q is None:
@@ -112,7 +112,7 @@ for filename,collection in [('empire-review.json','donghak-empire'),('sovereignt
   assert len(q['choiceNotes'])==5
 # Keep 550 regular questions plus requested personal questions from exams 68 and 69.
 assert len([q for q in bank if q['exam']>=70])==550
-assert len(bank)==554
+assert len(bank)==556
 for e in range(70,81):
  group=[q for q in bank if q['exam']==e]
  assert len(group)==50 and sum(q['points'] for q in group)==100
@@ -122,5 +122,5 @@ for q in bank:
  q.pop('text',None)
 Path('src/entities/question/data/questions.json').write_text(json.dumps(bank,ensure_ascii=False,separators=(',',':')))
 Path('scripts/era-classification.json').write_text(json.dumps({'ranges':ranges,'overrides':overrides},ensure_ascii=False,indent=2))
-print('550 regular questions + 4 retained personal questions; early collection 10; late collection 9')
+print('550 regular questions + 6 retained personal questions; early collection 10; late collection 9')
 print('choice notes:',sum(len(q.get('notes',[])) for q in bank))

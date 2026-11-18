@@ -35,7 +35,7 @@ describe('official exam bank', () => {
   it('retains personal collections and their corrected notes', () => {
     expect(questions.filter((q) => q.collections?.includes('joseon-early'))).toHaveLength(10);
     expect(questions.filter((q) => q.collections?.includes('joseon-late'))).toHaveLength(9);
-    expect(questions.reduce((n, q) => n + (q.notes?.length ?? 0), 0)).toBe(120);
+    expect(questions.reduce((n, q) => n + (q.notes?.length ?? 0), 0)).toBe(136);
     expect(
       questions
         .filter((q) => q.collections?.includes('joseon-society'))
@@ -84,6 +84,13 @@ describe('official exam bank', () => {
     ).toEqual(['68-36', '70-33', '72-29', '74-34', '75-32', '75-33', '77-34', '77-35']);
     expect(questions.find((q) => q.id === '68-36')?.answer).toBe(5);
     expect(questions.find((q) => q.id === '77-35')?.notes?.[2].answer).toContain('향교');
+    expect(
+      questions
+        .filter((q) => q.collections?.includes('1920s-flow'))
+        .map((q) => q.id)
+        .sort(),
+    ).toEqual(['69-35', '69-37', '71-39', '75-40', '76-39', '77-38']);
+    expect(questions.find((q) => q.id === '77-38')?.choiceNotes?.[2]).toContain('1942');
     expect(questions.find((q) => q.id === '72-30')?.notes?.[4].answer).toContain('1899');
     expect(questions.find((q) => q.id === '71-29')?.explanation).toContain('조영 수호 통상 조약');
     expect(questions.find((q) => q.id === '76-29')?.notes?.[0].answer).toContain('1894');
@@ -93,7 +100,7 @@ describe('official exam bank', () => {
   });
   it('provides five authored choice explanations for every personal review question', () => {
     const personal = questions.filter((q) => q.collections?.length);
-    expect(personal).toHaveLength(47);
+    expect(personal).toHaveLength(53);
     for (const q of personal) {
       expect(q.choiceNotes, q.id).toHaveLength(5);
       expect(
