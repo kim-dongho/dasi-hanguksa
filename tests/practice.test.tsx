@@ -353,6 +353,35 @@ describe('original practice flow', () => {
       }
     },
   );
+  it('opens the new personal collection with official exam 69 and corrected notes after grading', async () => {
+    const user = userEvent.setup();
+    const home = render(
+      <MemoryRouter>
+        <HomePage />
+      </MemoryRouter>,
+    );
+    expect(
+      screen.getByRole('link', { name: '근대적 개혁 추진(개항~갑신정변) 4문항 →' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: '동학 농민 운동과 대한 제국 수립 4문항 →' }),
+    ).toHaveAttribute('href', '/practice?collection=donghak-empire');
+    home.unmount();
+    render(
+      <MemoryRouter initialEntries={['/practice?collection=donghak-empire&q=69-31']}>
+        <PracticePage />
+      </MemoryRouter>,
+    );
+    expect(screen.getByAltText('69회 31번 원문 전체. 배점 2점.')).toHaveAttribute(
+      'src',
+      '/questions/69/31.webp',
+    );
+    expect(screen.getByText('4 / 4')).toBeInTheDocument();
+    await user.click(screen.getByRole('radio', { name: /^1번/ }));
+    await user.click(screen.getByRole('button', { name: '채점하기' }));
+    expect(screen.getByText('정답 · 2점')).toBeInTheDocument();
+    expect(screen.getByText('1881년 · 개화 정책', { exact: false })).toBeInTheDocument();
+  });
   it('warns instead of losing the current memo when browser storage is unavailable', () => {
     const set = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
       throw new Error('quota');

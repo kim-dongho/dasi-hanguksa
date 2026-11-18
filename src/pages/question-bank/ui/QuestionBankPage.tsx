@@ -56,7 +56,16 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
             흥선대원군 집권기 3문항 →
           </Link>
           <Link className="secondary" to="/practice?collection=modern-reforms">
-            006_근대적 개혁 추진(개항~갑신정변) 4문항 →
+            근대적 개혁 추진(개항~갑신정변) 4문항 →
+          </Link>
+          <Link className="secondary" to="/practice?collection=donghak-empire">
+            동학 농민 운동과 대한 제국 수립 4문항 →
+          </Link>
+          <Link className="secondary" to="/practice?collection=sovereignty">
+            일제 침략과 국권 수호 운동 (4문항) →
+          </Link>
+          <Link className="secondary" to="/practice?collection=opening-culture">
+            개화기 단체와 문화 (8문항) →
           </Link>
         </div>
       ) : null}
