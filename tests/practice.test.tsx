@@ -16,8 +16,8 @@ describe('original practice flow', () => {
     );
     for (const name of ['오답노트', '시대별 기출', '회차별 기출', '기출 오답'])
       expect(screen.getByRole('heading', { name: new RegExp(name) })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /조선 전기 10문항/ })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /조선 후기 9문항/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /조선 전기 \(10문항\)/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /조선 후기 \(9문항\)/ })).toBeInTheDocument();
   });
   it('grades an original question, persists the wrong answer, retries and saves each numbered memo independently', async () => {
     const user = userEvent.setup();
@@ -361,10 +361,10 @@ describe('original practice flow', () => {
       </MemoryRouter>,
     );
     expect(
-      screen.getByRole('link', { name: '근대적 개혁 추진(개항~갑신정변) 4문항 →' }),
+      screen.getByRole('link', { name: '근대적 개혁 추진(개항~갑신정변) (4문항)' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('link', { name: '동학 농민 운동과 대한 제국 수립 4문항 →' }),
+      screen.getByRole('link', { name: '동학 농민 운동과 대한 제국 수립 (4문항)' }),
     ).toHaveAttribute('href', '/practice?collection=donghak-empire');
     home.unmount();
     render(

@@ -82,34 +82,61 @@ export function HomePage() {
           </Link>
         ))}
       </section>
-      <section className="mt-6 flex flex-wrap items-center gap-3 rounded-lg border border-line bg-panel px-5 py-4">
-        <span className="mr-2 text-xs font-semibold text-moss">내가 모은 기출</span>
+      <section className="mt-6 grid grid-cols-1 gap-3 rounded-lg border border-line bg-panel px-5 py-4 sm:grid-cols-2 lg:grid-cols-4 [&>a]:min-w-0 [&>a]:justify-between [&>a]:gap-2 [&>a]:whitespace-nowrap [&>a]:px-2 [&>a]:text-left [&>a]:text-[11px] [&>a]:leading-5">
+        <span className="col-span-full text-xs font-semibold text-moss">내가 모은 기출</span>
         <Link className="secondary" to="/practice?collection=joseon-early">
-          조선 전기 10문항 →
+          <span>조선 전기 (10문항)</span>
+          <span aria-hidden="true" className="shrink-0">
+            →
+          </span>
         </Link>
         <Link className="secondary" to="/practice?collection=joseon-late">
-          조선 후기 9문항 →
+          <span>조선 후기 (9문항)</span>
+          <span aria-hidden="true" className="shrink-0">
+            →
+          </span>
         </Link>
         <Link className="secondary" to="/practice?collection=joseon-society">
-          조선 사회 2문항 →
+          <span>조선 사회 (2문항)</span>
+          <span aria-hidden="true" className="shrink-0">
+            →
+          </span>
         </Link>
         <Link className="secondary" to="/practice?collection=joseon-economy">
-          조선 경제 3문항 →
+          <span>조선 경제 (3문항)</span>
+          <span aria-hidden="true" className="shrink-0">
+            →
+          </span>
         </Link>
         <Link className="secondary" to="/practice?collection=daewongun">
-          흥선대원군 집권기 3문항 →
+          <span>흥선대원군 집권기 (3문항)</span>
+          <span aria-hidden="true" className="shrink-0">
+            →
+          </span>
         </Link>
         <Link className="secondary" to="/practice?collection=modern-reforms">
-          근대적 개혁 추진(개항~갑신정변) 4문항 →
+          <span>근대적 개혁 추진(개항~갑신정변) (4문항)</span>
+          <span aria-hidden="true" className="shrink-0">
+            →
+          </span>
         </Link>
         <Link className="secondary" to="/practice?collection=donghak-empire">
-          동학 농민 운동과 대한 제국 수립 4문항 →
+          <span>동학 농민 운동과 대한 제국 수립 (4문항)</span>
+          <span aria-hidden="true" className="shrink-0">
+            →
+          </span>
         </Link>
         <Link className="secondary" to="/practice?collection=sovereignty">
-          일제 침략과 국권 수호 운동 (4문항) →
+          <span>일제 침략과 국권 수호 운동 (4문항)</span>
+          <span aria-hidden="true" className="shrink-0">
+            →
+          </span>
         </Link>
         <Link className="secondary" to="/practice?collection=opening-culture">
-          개화기 단체와 문화 (8문항) →
+          <span>개화기 단체와 문화 (8문항)</span>
+          <span aria-hidden="true" className="shrink-0">
+            →
+          </span>
         </Link>
       </section>
       <p className="mt-7 text-[10px] leading-6 text-muted">
