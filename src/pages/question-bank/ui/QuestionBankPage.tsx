@@ -73,7 +73,10 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
           <Link className="secondary" to="/practice?collection=independence">
             독립운동 (14문항) →
           </Link>
-          </div>
+          <Link className="secondary" to="/practice?collection=occupation-culture">
+            일제 강점기 문화 (4문항) →
+          </Link>
+        </div>
       ) : null}
       {mode !== 'wrong' && !selected ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

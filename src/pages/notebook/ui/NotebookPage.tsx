@@ -72,6 +72,9 @@ export function NotebookPage() {
         <Link className="secondary" to="/practice?collection=independence">
           독립운동 (14문항) →
         </Link>
+        <Link className="secondary" to="/practice?collection=occupation-culture">
+          일제 강점기 문화 (4문항) →
+        </Link>
       </div>
       {choices ? (
         <div className="curated-notes">

@@ -35,7 +35,7 @@ describe('official exam bank', () => {
   it('retains personal collections and their corrected notes', () => {
     expect(questions.filter((q) => q.collections?.includes('joseon-early'))).toHaveLength(10);
     expect(questions.filter((q) => q.collections?.includes('joseon-late'))).toHaveLength(9);
-    expect(questions.reduce((n, q) => n + (q.notes?.length ?? 0), 0)).toBe(187);
+    expect(questions.reduce((n, q) => n + (q.notes?.length ?? 0), 0)).toBe(195);
     expect(
       questions
         .filter((q) => q.collections?.includes('joseon-society'))
@@ -90,6 +90,9 @@ describe('official exam bank', () => {
         .map((q) => q.id)
         .sort(),
     ).toEqual(['69-35', '69-37', '71-39', '75-40', '76-39', '77-38']);
+    expect(questions.find((q) => q.id === '69-35')?.answer).toBe(2);
+    expect(questions.find((q) => q.id === '69-37')?.answer).toBe(1);
+    expect(questions.find((q) => q.id === '77-38')?.choiceNotes?.[2]).toContain('1942');
     expect(
       questions
         .filter((q) => q.collections?.includes('independence'))
@@ -111,7 +114,15 @@ describe('official exam bank', () => {
       '77-36',
       '77-41',
     ]);
-    expect(questions.find((q) => q.id === '77-38')?.choiceNotes?.[2]).toContain('1942');
+    expect(
+      questions
+        .filter((q) => q.collections?.includes('occupation-culture'))
+        .map((q) => q.id)
+        .sort(),
+    ).toEqual(['67-42', '70-41', '72-39', '76-40']);
+    expect(questions.find((q) => q.id === '67-37')?.choiceNotes?.[2]).toContain('나석주');
+    expect(questions.find((q) => q.id === '67-42')?.choiceNotes?.[1]).toContain('1905');
+    expect(questions.find((q) => q.id === '74-37')?.notes?.[4].answer).toContain('독립의군부');
     expect(questions.find((q) => q.id === '72-30')?.notes?.[4].answer).toContain('1899');
     expect(questions.find((q) => q.id === '71-29')?.explanation).toContain('조영 수호 통상 조약');
     expect(questions.find((q) => q.id === '76-29')?.notes?.[0].answer).toContain('1894');
@@ -121,7 +132,7 @@ describe('official exam bank', () => {
   });
   it('provides five authored choice explanations for every personal review question', () => {
     const personal = questions.filter((q) => q.collections?.length);
-    expect(personal).toHaveLength(67);
+    expect(personal).toHaveLength(71);
     for (const q of personal) {
       expect(q.choiceNotes, q.id).toHaveLength(5);
       expect(
