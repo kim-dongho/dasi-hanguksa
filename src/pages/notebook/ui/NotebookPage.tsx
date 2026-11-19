@@ -90,6 +90,9 @@ export function NotebookPage() {
         <Link className="secondary" to="/practice?collection=inter-korean-democracy">
           남북 관계+민주화 운동 (2문항) →
         </Link>
+        <Link className="secondary" to="/practice?collection=prehistoric">
+          선사 시대 (1문항) →
+        </Link>
       </div>
       {choices ? (
         <div className="curated-notes">

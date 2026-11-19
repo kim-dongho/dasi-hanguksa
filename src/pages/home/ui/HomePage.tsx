@@ -186,6 +186,12 @@ export function HomePage() {
             →
           </span>
         </Link>
+        <Link className="secondary" to="/practice?collection=prehistoric">
+          <span>선사 시대 (1문항)</span>
+          <span aria-hidden="true" className="shrink-0">
+            →
+          </span>
+        </Link>
       </section>
       <p className="mt-7 text-[10px] leading-6 text-muted">
         국사편찬위원회 공식 기출 원문 · 풀이와 메모는 현재 브라우저에 저장됩니다.
