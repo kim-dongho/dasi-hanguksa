@@ -85,6 +85,9 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
           <Link className="secondary" to="/practice?collection=park-government">
             박정희 정부 (1문항) →
           </Link>
+          <Link className="secondary" to="/practice?collection=recent-governments">
+            노태우 정부~문재인 정부 (4문항) →
+          </Link>
         </div>
       ) : null}
       {mode !== 'wrong' && !selected ? (
