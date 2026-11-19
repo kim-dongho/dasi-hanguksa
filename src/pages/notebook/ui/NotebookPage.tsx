@@ -81,6 +81,9 @@ export function NotebookPage() {
         <Link className="secondary" to="/practice?collection=rhee-war">
           이승만 정부와 6·25 전쟁 (3문항) →
         </Link>
+        <Link className="secondary" to="/practice?collection=park-government">
+          박정희 정부 (1문항) →
+        </Link>
       </div>
       {choices ? (
         <div className="curated-notes">

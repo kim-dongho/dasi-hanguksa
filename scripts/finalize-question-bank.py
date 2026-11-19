@@ -99,7 +99,7 @@ for id,review in json.loads(Path('scripts/era-explanations.json').read_text()).i
  assert len(review['choiceNotes'])==5
  byid[id].update(review)
 # Personal additions may include official questions outside the regular exam range.
-for filename,collection in [('empire-review.json','donghak-empire'),('sovereignty-review.json','sovereignty'),('opening-culture-review.json','opening-culture'),('1920s-review.json','1920s-flow'),('independence-review.json','independence'),('occupation-culture-review.json','occupation-culture'),('liberation-review.json','liberation'),('rhee-war-review.json','rhee-war')]:
+for filename,collection in [('empire-review.json','donghak-empire'),('sovereignty-review.json','sovereignty'),('opening-culture-review.json','opening-culture'),('1920s-review.json','1920s-flow'),('independence-review.json','independence'),('occupation-culture-review.json','occupation-culture'),('liberation-review.json','liberation'),('rhee-war-review.json','rhee-war'),('park-review.json','park-government')]:
  for review in json.loads((Path('scripts')/filename).read_text()):
   q=byid.get(review['id'])
   if q is None:
