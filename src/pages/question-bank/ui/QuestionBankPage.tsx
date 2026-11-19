@@ -88,6 +88,9 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
           <Link className="secondary" to="/practice?collection=recent-governments">
             노태우 정부~문재인 정부 (4문항) →
           </Link>
+          <Link className="secondary" to="/practice?collection=inter-korean-democracy">
+            남북 관계+민주화 운동 (2문항) →
+          </Link>
         </div>
       ) : null}
       {mode !== 'wrong' && !selected ? (
