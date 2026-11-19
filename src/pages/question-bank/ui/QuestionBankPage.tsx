@@ -76,6 +76,9 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
           <Link className="secondary" to="/practice?collection=occupation-culture">
             일제 강점기 문화 (4문항) →
           </Link>
+          <Link className="secondary" to="/practice?collection=liberation">
+            광복~대한민국 정부 수립 (5문항) →
+          </Link>
         </div>
       ) : null}
       {mode !== 'wrong' && !selected ? (
