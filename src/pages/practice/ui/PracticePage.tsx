@@ -69,6 +69,10 @@ export function PracticePage() {
   const maxScore = pool.reduce((sum, q) => sum + q.points, 0);
   const studyParams = new URLSearchParams(params);
   studyParams.delete('mode');
+  const wrongParams = new URLSearchParams(studyParams);
+  wrongParams.delete('q');
+  wrongParams.set('wrong', '1');
+  const remainingWrong = pool.filter((q) => results[q.id] && results[q.id].selected !== q.answer);
   return (
     <main className={`mx-auto max-w-[1600px] px-4 pb-28 ${graded ? 'is-graded' : ''}`}>
       <div className="flex min-h-[62px] flex-wrap items-center justify-between gap-3 py-2 [&>div:first-child]:flex [&>div:first-child]:items-baseline [&>div:first-child]:gap-4 [&_h1]:text-lg [&_h1]:font-bold [&_small]:ml-2 [&_small]:text-[10px] [&_small]:font-normal [&_small]:text-muted [&_a]:text-xs [&_a]:text-muted [&_a]:no-underline">
@@ -83,7 +87,12 @@ export function PracticePage() {
         {!isExam ? (
           <div className="flex flex-wrap items-center gap-4">
             <StudyProgress questions={pool} results={results} />
-            {params.get('era') ? (
+            {!params.get('wrong') && remainingWrong.length ? (
+              <Link className="secondary" to={`/practice?${wrongParams}`}>
+                오답만 풀기 ({remainingWrong.length}문항)
+              </Link>
+            ) : null}
+            {params.get('era') && !params.get('wrong') ? (
               <ResetQuestionProgress
                 questions={pool}
                 onReset={() => {
@@ -97,6 +106,12 @@ export function PracticePage() {
           </div>
         ) : null}
       </div>
+      {params.get('wrong') ? (
+        <p className="mb-3 text-xs text-muted">
+          오답 풀이 · 남은 오답 {remainingWrong.length}문항 · 맞힌 문제는 다음 오답 목록에서
+          제외됩니다.
+        </p>
+      ) : null}
       {isExam ? (
         <section
           className="mb-3 flex flex-wrap items-center gap-3 rounded-lg border border-line bg-card px-4 py-3 text-xs"

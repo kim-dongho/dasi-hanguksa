@@ -9,15 +9,20 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
   const { results } = useQuestionProgress();
   const [params, setParams] = useSearchParams();
   const selected = params.get(mode === 'era' ? 'era' : 'exam');
+  const onlyWrong = mode === 'wrong' || params.get('wrong') === '1';
   const all = questions.filter((q) => mode === 'wrong' || q.exam >= 70);
-  const filtered = all.filter(
+  const scoped = all.filter(
     (q) =>
-      (mode !== 'wrong' || (results[q.id] && results[q.id].selected !== q.answer)) &&
-      (!selected ||
-        (mode === 'era'
-          ? q.eras.includes(selected as (typeof q.eras)[number])
-          : q.exam === Number(selected))),
+      !selected ||
+      (mode === 'era'
+        ? q.eras.includes(selected as (typeof q.eras)[number])
+        : q.exam === Number(selected)),
   );
+  const wrong = scoped.filter((q) => results[q.id] && results[q.id].selected !== q.answer);
+  const filtered = onlyWrong ? wrong : scoped;
+  const practiceParams = new URLSearchParams();
+  if (selected) practiceParams.set(mode === 'era' ? 'era' : 'exam', selected);
+  if (onlyWrong) practiceParams.set('wrong', '1');
   const exams = [...new Set(all.map((q) => q.exam))].sort((a, b) => b - a);
   const title = mode === 'era' ? '시대별 기출' : mode === 'exam' ? '회차별 기출' : '기출 오답';
   const groups =
@@ -41,7 +46,7 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
         <h1>{title}</h1>
         <p>
           {mode === 'wrong'
-            ? '틀린 문제를 다시 풀고, 보기별 메모를 이어서 정리하세요.'
+            ? '틀린 문제만 다시 풀어요. 다시 맞힌 문제는 다음 오답 목록에서 자동으로 빠집니다.'
             : '지문·자료에서 묻는 시대 기준으로 분류했어요. 보기의 시대는 분류에 포함하지 않아요.'}
         </p>
       </header>
@@ -145,12 +150,26 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
               {selected ? (groups.find((g) => g.id === selected)?.title ?? '선택한 문제') : ''} ·{' '}
               {filtered.length}문항
             </span>
-            {filtered.length ? (
-              <Link
-                className="primary"
-                to={`/practice?${mode === 'wrong' ? 'wrong=1' : mode === 'era' ? `era=${selected}` : `exam=${selected}`}`}
+            {mode !== 'wrong' && selected ? (
+              <button
+                type="button"
+                className="secondary"
+                aria-pressed={onlyWrong}
+                onClick={() =>
+                  setParams((previous) => {
+                    const next = new URLSearchParams(previous);
+                    if (onlyWrong) next.delete('wrong');
+                    else next.set('wrong', '1');
+                    return next;
+                  })
+                }
               >
-                {mode === 'wrong' ? '오답 다시 풀기 →' : '해설 보며 풀기 →'}
+                오답만 보기 ({wrong.length}문항)
+              </button>
+            ) : null}
+            {filtered.length ? (
+              <Link className="primary" to={`/practice?${practiceParams}`}>
+                {onlyWrong ? '오답 다시 풀기 →' : '해설 보며 풀기 →'}
               </Link>
             ) : null}
             {mode === 'exam' && selected && filtered.length ? (
@@ -159,25 +178,22 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
               </Link>
             ) : null}
           </div>
-          {mode === 'era' && filtered.length ? (
+          {mode === 'era' && scoped.length ? (
             <div className="mb-5 flex flex-wrap items-center justify-between gap-4 rounded-lg border border-line bg-card px-5 py-4">
-              <StudyProgress questions={filtered} results={results} />
-              <ResetQuestionProgress questions={filtered} />
+              <StudyProgress questions={scoped} results={results} />
+              <ResetQuestionProgress questions={scoped} />
             </div>
           ) : null}
           {!filtered.length ? (
             <div className="empty">
-              {mode === 'wrong'
-                ? '아직 틀린 기출문제가 없어요. 시대별·회차별 기출을 먼저 풀어보세요.'
+              {onlyWrong
+                ? '남은 오답이 없어요. 다시 맞힌 문제는 오답 목록에서 제외됩니다.'
                 : '해당 문항이 없어요.'}
             </div>
           ) : (
             <div className="overflow-hidden rounded-lg border border-line bg-card [&>a]:flex [&>a]:items-center [&>a]:gap-4 [&>a]:border-b [&>a]:border-line [&>a]:px-4 [&>a]:py-4 [&>a]:text-xs [&>a]:no-underline [&>a:hover]:bg-panel [&>a:last-child]:border-0 [&_small]:ml-auto [&_small]:text-muted [&_strong]:font-medium [&>a>span:nth-last-child(3)]:text-muted max-sm:[&>a>span:nth-last-child(3)]:hidden">
               {filtered.map((q) => (
-                <Link
-                  key={q.id}
-                  to={`/practice?${mode === 'wrong' ? 'wrong=1' : mode === 'era' ? `era=${selected}` : `exam=${q.exam}`}&q=${q.id}`}
-                >
+                <Link key={q.id} to={`/practice?${practiceParams}&q=${q.id}`}>
                   <span
                     className={`result-dot ${results[q.id] ? (results[q.id].selected === q.answer ? 'correct' : 'wrong') : ''}`}
                   >
@@ -188,7 +204,7 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
                   </strong>
                   <span>{q.eras.map((id) => eras.find((e) => e.id === id)?.name).join(' · ')}</span>
                   <small>{q.points}점</small>
-                  <span>{mode === 'wrong' ? '다시 풀기 →' : '→'}</span>
+                  <span>{onlyWrong ? '다시 풀기 →' : '→'}</span>
                 </Link>
               ))}
             </div>

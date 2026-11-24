@@ -9,6 +9,69 @@ import { ChoiceMemo } from '@/features/choice-memo';
 import { questions } from '@/entities/question';
 
 describe('original practice flow', () => {
+  it.each(['era', 'exam'] as const)(
+    'filters %s mistakes, retries with no selected choice and excludes corrected questions next time',
+    async (mode) => {
+      const user = userEvent.setup();
+      const selected = mode === 'era' ? 'joseon-early' : '70';
+      const matches = (q: (typeof questions)[number]) =>
+        q.exam >= 70 && (mode === 'era' ? q.eras.includes('joseon-early') : q.exam === 70);
+      const [wrong, correct] = questions.filter(matches);
+      const outside = questions.find((q) => q.exam >= 70 && !matches(q))!;
+      localStorage.setItem(
+        'original-exam-questions-v1',
+        JSON.stringify({
+          [wrong.id]: { selected: (wrong.answer % 5) + 1 },
+          [correct.id]: { selected: correct.answer },
+          [outside.id]: { selected: (outside.answer % 5) + 1 },
+        }),
+      );
+      const archiveUrl = `/${mode === 'era' ? 'eras' : 'exams'}?${mode}=${selected}`;
+      const archive = render(
+        <MemoryRouter initialEntries={[archiveUrl]}>
+          <QuestionBankPage mode={mode} />
+        </MemoryRouter>,
+      );
+      await user.click(screen.getByRole('button', { name: '오답만 보기 (1문항)' }));
+      expect(screen.getByRole('button', { name: '오답만 보기 (1문항)' })).toHaveAttribute(
+        'aria-pressed',
+        'true',
+      );
+      expect(screen.getByText(`${wrong.exam}회 ${wrong.number}번`)).toBeInTheDocument();
+      expect(screen.queryByText(`${correct.exam}회 ${correct.number}번`)).not.toBeInTheDocument();
+      expect(screen.queryByText(`${outside.exam}회 ${outside.number}번`)).not.toBeInTheDocument();
+      const retryUrl = screen.getByRole('link', { name: '오답 다시 풀기 →' }).getAttribute('href')!;
+      expect(retryUrl).toBe(`/practice?${mode}=${selected}&wrong=1`);
+      archive.unmount();
+      const practice = render(
+        <MemoryRouter initialEntries={[`${retryUrl}&mode=exam`]}>
+          <PracticePage />
+        </MemoryRouter>,
+      );
+      for (const radio of screen.getAllByRole('radio')) {
+        expect(radio).not.toBeChecked();
+        expect(radio).toBeEnabled();
+      }
+      expect(screen.queryByText('채점 후 복습')).not.toBeInTheDocument();
+      expect(screen.queryByRole('region', { name: '실전 시험' })).not.toBeInTheDocument();
+      expect(screen.getByRole('button', { name: '채점하기' })).toBeDisabled();
+      await user.click(screen.getByRole('radio', { name: new RegExp(`^${wrong.answer}번`) }));
+      await user.click(screen.getByRole('button', { name: '채점하기' }));
+      expect(screen.getByText(`정답 · ${wrong.points}점`)).toBeInTheDocument();
+      practice.unmount();
+      render(
+        <MemoryRouter initialEntries={[`${archiveUrl}&wrong=1`]}>
+          <QuestionBankPage mode={mode} />
+        </MemoryRouter>,
+      );
+      expect(screen.queryByText(`${wrong.exam}회 ${wrong.number}번`)).not.toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: '오답 다시 풀기 →' })).not.toBeInTheDocument();
+      expect(screen.getByText(/남은 오답이 없어요/)).toBeInTheDocument();
+      expect(JSON.parse(localStorage.getItem('original-exam-questions-v1')!)[outside.id]).toEqual({
+        selected: (outside.answer % 5) + 1,
+      });
+    },
+  );
   it.each(['archive', 'practice'])(
     'resets only the selected era from %s, keeps memos and starts a fresh attempt',
     async (location) => {
