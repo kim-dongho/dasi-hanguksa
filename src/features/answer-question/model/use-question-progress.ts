@@ -22,5 +22,12 @@ export function useQuestionProgress() {
     }
     update(next);
   };
-  return { results, answer, saved, gradeAnswers };
+  const reset = (ids: string[]) => {
+    update((previous) => {
+      const next = { ...previous };
+      for (const id of ids) delete next[id];
+      return next;
+    });
+  };
+  return { results, answer, saved, gradeAnswers, reset };
 }

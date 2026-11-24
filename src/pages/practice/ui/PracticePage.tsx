@@ -4,6 +4,7 @@ import { questions } from '@/entities/question';
 import {
   AnswerQuestion,
   ExamAnswer,
+  ResetQuestionProgress,
   StudyProgress,
   useQuestionProgress,
 } from '@/features/answer-question';
@@ -16,6 +17,7 @@ export function PracticePage() {
   const [submitted, setSubmitted] = useState(false);
   const [retrying, setRetrying] = useState<string[]>([]);
   const [reviewed, setReviewed] = useState<string[]>([]);
+  const [resetCount, setResetCount] = useState(0);
   const [pool] = useState(() =>
     questions
       .filter((q) =>
@@ -78,7 +80,22 @@ export function PracticePage() {
             {current.exam}회 {current.number}번 <small>심화 · {current.points}점</small>
           </h1>
         </div>
-        {!isExam ? <StudyProgress questions={pool} results={results} /> : null}
+        {!isExam ? (
+          <div className="flex flex-wrap items-center gap-4">
+            <StudyProgress questions={pool} results={results} />
+            {params.get('era') ? (
+              <ResetQuestionProgress
+                questions={pool}
+                onReset={() => {
+                  setRetrying([]);
+                  setReviewed([]);
+                  setResetCount((previous) => previous + 1);
+                  navigate(pool[0].id);
+                }}
+              />
+            ) : null}
+          </div>
+        ) : null}
       </div>
       {isExam ? (
         <section
@@ -177,7 +194,7 @@ export function PracticePage() {
               />
             ) : (
               <AnswerQuestion
-                key={current.id}
+                key={`${current.id}-${resetCount}`}
                 question={current}
                 hidePreviousResult={hidePreviousResult}
                 onRetry={() => setRetrying((previous) => [...previous, current.id])}

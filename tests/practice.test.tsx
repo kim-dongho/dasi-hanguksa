@@ -6,8 +6,70 @@ import { PracticePage } from '@/pages/practice';
 import { QuestionBankPage } from '@/pages/question-bank';
 import { HomePage } from '@/pages/home';
 import { ChoiceMemo } from '@/features/choice-memo';
+import { questions } from '@/entities/question';
 
 describe('original practice flow', () => {
+  it.each(['archive', 'practice'])(
+    'resets only the selected era from %s, keeps memos and starts a fresh attempt',
+    async (location) => {
+      const user = userEvent.setup();
+      const first = questions.find((q) => q.exam >= 70 && q.eras.includes('joseon-early'))!;
+      const other = questions.find((q) => q.exam >= 70 && !q.eras.includes('joseon-early'))!;
+      const initial = {
+        [first.id]: { selected: first.answer },
+        '77-20': { selected: 5 },
+        [other.id]: { selected: other.answer },
+      };
+      localStorage.setItem('original-exam-questions-v1', JSON.stringify(initial));
+      const memos = JSON.stringify({ [first.id]: ['남겨둘 메모', '', '', '', ''] });
+      localStorage.setItem('original-exam-choice-memos-v1', memos);
+      const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false);
+      try {
+        const view = render(
+          <MemoryRouter
+            initialEntries={[
+              location === 'archive'
+                ? '/eras?era=joseon-early'
+                : `/practice?era=joseon-early&q=${first.id}`,
+            ]}
+          >
+            {location === 'archive' ? <QuestionBankPage mode="era" /> : <PracticePage />}
+          </MemoryRouter>,
+        );
+        await user.click(screen.getByRole('button', { name: '풀이 초기화' }));
+        expect(JSON.parse(localStorage.getItem('original-exam-questions-v1')!)).toEqual(initial);
+        confirm.mockReturnValue(true);
+        await user.click(screen.getByRole('button', { name: '풀이 초기화' }));
+        expect(JSON.parse(localStorage.getItem('original-exam-questions-v1')!)).toEqual({
+          [other.id]: { selected: other.answer },
+        });
+        expect(localStorage.getItem('original-exam-choice-memos-v1')).toBe(memos);
+        expect(
+          within(screen.getByLabelText('학습 현황')).getByText('점수').nextElementSibling,
+        ).toHaveTextContent(/^0 \/ /);
+        expect(screen.getByRole('button', { name: '풀이 초기화' })).toBeDisabled();
+        if (location === 'practice') {
+          expect(screen.queryByText('채점 후 복습')).not.toBeInTheDocument();
+          expect(screen.getByRole('textbox', { name: '①번 메모' })).toHaveValue('남겨둘 메모');
+          await user.click(screen.getByRole('radio', { name: /^1번/ }));
+          await user.click(screen.getByRole('button', { name: '채점하기' }));
+          await user.click(screen.getByRole('button', { name: '풀이 초기화' }));
+          expect(screen.getByRole('radio', { name: /^1번/ })).not.toBeChecked();
+          expect(screen.getByRole('radio', { name: /^1번/ })).toBeEnabled();
+          expect(screen.getByRole('button', { name: '채점하기' })).toBeDisabled();
+        }
+        view.unmount();
+        render(
+          <MemoryRouter initialEntries={['/eras?era=joseon-early']}>
+            <QuestionBankPage mode="era" />
+          </MemoryRouter>,
+        );
+        expect(screen.getByRole('button', { name: '풀이 초기화' })).toBeDisabled();
+      } finally {
+        confirm.mockRestore();
+      }
+    },
+  );
   it('shows all four study destinations and both personal collections', () => {
     render(
       <MemoryRouter>

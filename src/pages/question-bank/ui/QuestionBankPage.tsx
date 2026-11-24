@@ -1,6 +1,10 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { questions, eras } from '@/entities/question';
-import { StudyProgress, useQuestionProgress } from '@/features/answer-question';
+import {
+  ResetQuestionProgress,
+  StudyProgress,
+  useQuestionProgress,
+} from '@/features/answer-question';
 export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
   const { results } = useQuestionProgress();
   const [params, setParams] = useSearchParams();
@@ -156,8 +160,9 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
             ) : null}
           </div>
           {mode === 'era' && filtered.length ? (
-            <div className="mb-5 rounded-lg border border-line bg-card px-5 py-4">
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-4 rounded-lg border border-line bg-card px-5 py-4">
               <StudyProgress questions={filtered} results={results} />
+              <ResetQuestionProgress questions={filtered} />
             </div>
           ) : null}
           {!filtered.length ? (
