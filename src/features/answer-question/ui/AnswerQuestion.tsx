@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import type { Question } from '@/entities/question';
 import { useQuestionProgress } from '../model/use-question-progress';
+import { KeepQuestion } from './KeepQuestion';
 const marks = ['①', '②', '③', '④', '⑤'];
 export function AnswerQuestion({
   question: q,
@@ -19,7 +20,7 @@ export function AnswerQuestion({
   const result = hidePreviousResult ? undefined : results[q.id];
   const correct = result?.selected === q.answer;
   return (
-    <section className="border-t border-line bg-panel px-3.5 pb-2 pt-2.5 [&>form]:flex [&>form]:items-center [&>form]:gap-4 [&_fieldset]:flex-1 [&_legend]:mb-1 [&_legend]:text-[9px] [&_legend]:text-muted [&_button]:mt-4">
+    <section className="border-t border-line bg-panel px-3.5 pb-2 pt-2.5 [&>form]:flex [&>form]:flex-wrap [&>form]:items-center [&>form]:gap-4 [&_fieldset]:flex-1 [&_legend]:mb-1 [&_legend]:text-[9px] [&_legend]:text-muted [&_button]:mt-4">
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -54,6 +55,7 @@ export function AnswerQuestion({
             ))}
           </div>
         </fieldset>
+        <KeepQuestion questionId={q.id} />
         {result ? (
           <button
             className="secondary"

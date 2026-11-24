@@ -9,6 +9,28 @@ import { ChoiceMemo } from '@/features/choice-memo';
 import { questions } from '@/entities/question';
 
 describe('original practice flow', () => {
+  it.each(['study', 'exam'])(
+    'keeps the question beside the %s answers without selecting or grading an answer',
+    async (mode) => {
+      const user = userEvent.setup();
+      render(
+        <MemoryRouter initialEntries={[`/practice?collection=joseon-society&mode=${mode}`]}>
+          <PracticePage />
+        </MemoryRouter>,
+      );
+      const keep = screen.getByRole('button', { name: '문제 킵' });
+      const answers = keep.closest('section')!;
+      expect(within(answers).getAllByRole('radio')).toHaveLength(5);
+      await user.click(keep);
+      expect(keep).toHaveAttribute('aria-pressed', 'true');
+      expect(localStorage.getItem('original-exam-questions-v1')).toBeNull();
+      for (const radio of screen.getAllByRole('radio')) expect(radio).not.toBeChecked();
+      expect(screen.queryByText('채점 후 복습')).not.toBeInTheDocument();
+      expect(screen.getByRole('textbox', { name: '①번 메모' })).toHaveValue('');
+      await user.click(keep);
+      expect(keep).toHaveAttribute('aria-pressed', 'false');
+    },
+  );
   it.each(['era', 'exam'] as const)(
     'filters %s mistakes, retries with no selected choice and excludes corrected questions next time',
     async (mode) => {
