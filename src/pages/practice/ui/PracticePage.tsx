@@ -12,7 +12,7 @@ import { ChoiceMemo } from '@/features/choice-memo';
 export function PracticePage() {
   const [params, setParams] = useSearchParams();
   const { results, gradeAnswers, saved } = useQuestionProgress();
-  const isExam = params.get('mode') === 'exam' && !params.get('era');
+  const isExam = params.get('mode') === 'exam' && !params.get('era') && !params.get('wrong');
   const [draft, setDraft] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
   const [retrying, setRetrying] = useState<string[]>([]);

@@ -167,6 +167,7 @@ describe('original practice flow', () => {
     expect(screen.queryByText('채점 후 복습')).not.toBeInTheDocument();
     expect(screen.queryByText('오답 · 정답 ⑤번')).not.toBeInTheDocument();
     expect(screen.getByRole('radio', { name: /^5번/ })).toBeEnabled();
+    for (const radio of screen.getAllByRole('radio')) expect(radio).not.toBeChecked();
     expect(JSON.parse(localStorage.getItem('original-exam-questions-v1')!)['77-20'].selected).toBe(
       1,
     );
@@ -178,6 +179,7 @@ describe('original practice flow', () => {
     await user.click(screen.getByRole('button', { name: '다음 →' }));
     expect(screen.queryByText('채점 후 복습')).not.toBeInTheDocument();
     expect(screen.getByRole('radio', { name: /^1번/ })).toBeEnabled();
+    for (const radio of screen.getAllByRole('radio')) expect(radio).not.toBeChecked();
     view.unmount();
     render(
       <MemoryRouter>
