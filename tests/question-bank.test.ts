@@ -162,6 +162,14 @@ describe('official exam bank', () => {
     ).toEqual(['74-1']);
     expect(questions.find((q) => q.id === '74-1')?.choiceNotes?.[1]).toContain('고려');
     expect(questions.find((q) => q.id === '74-1')?.eras).toEqual(['ancient']);
+    expect(
+      questions
+        .filter((q) => q.collections?.includes('three-kingdoms'))
+        .map((q) => q.id)
+        .sort(),
+    ).toEqual(['65-3', '69-2', '70-3', '75-7']);
+    expect(questions.find((q) => q.id === '65-3')?.answer).toBe(2);
+    expect(questions.find((q) => q.id === '69-2')?.answer).toBe(5);
     expect(questions.find((q) => q.id === '72-30')?.notes?.[4].answer).toContain('1899');
     expect(questions.find((q) => q.id === '71-29')?.explanation).toContain('조영 수호 통상 조약');
     expect(questions.find((q) => q.id === '76-29')?.notes?.[0].answer).toContain('1894');
@@ -171,7 +179,7 @@ describe('official exam bank', () => {
   });
   it('provides five authored choice explanations for every personal review question', () => {
     const personal = questions.filter((q) => q.collections?.length);
-    expect(personal).toHaveLength(87);
+    expect(personal).toHaveLength(91);
     for (const q of personal) {
       expect(q.choiceNotes, q.id).toHaveLength(5);
       expect(

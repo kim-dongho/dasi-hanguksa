@@ -1,0 +1,75 @@
+[
+  {
+    "id": "75-7",
+    "title": "천리장성 축조 이후의 고구려",
+    "notes": []
+  },
+  {
+    "id": "70-3",
+    "title": "한성 함락 이후 백제의 외교",
+    "notes": []
+  },
+  {
+    "id": "65-3",
+    "exam": 65,
+    "number": 3,
+    "page": 1,
+    "answer": 2,
+    "points": 2,
+    "image": "/questions/65/3.webp",
+    "width": 945,
+    "height": 1147,
+    "source": {
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029957",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202306170100293950"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202306170100295101"
+      }
+    },
+    "eras": ["kingdoms"],
+    "notes": [],
+    "title": "문주왕의 웅진 천도와 공주",
+    "explanation": "고구려 장수왕의 공격으로 한성이 함락된 뒤 문주왕이 도읍을 옮긴 곳은 웅진, 현재의 충남 공주다. 공주에는 무령왕과 왕비의 무덤이 있으므로 정답은 ②다.",
+    "choiceNotes": [
+      "무왕의 미륵사 창건 · 전북 익산의 유적이다. 문주왕이 천도한 웅진(공주)과 다르다.",
+      "무령왕과 왕비의 무덤 · 충남 공주에 있다. 문주왕이 천도한 웅진에 해당하므로 정답이다.",
+      "성왕이 전사한 관산성 전투(554) · 충북 옥천 지역과 연결한다. 웅진(공주) 탐구가 아니다.",
+      "윤충의 대야성 함락(642) · 경남 합천 지역과 연결한다. 웅진과 구별한다.",
+      "계백의 황산벌 전투(660) · 충남 논산 지역과 연결한다. 공주와 구별한다."
+    ]
+  },
+  {
+    "id": "69-2",
+    "exam": 69,
+    "number": 2,
+    "page": 1,
+    "answer": 5,
+    "points": 2,
+    "image": "/questions/69/2.webp",
+    "width": 953,
+    "height": 930,
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "eras": ["kingdoms"],
+    "notes": [],
+    "title": "북한산 순수비와 진흥왕의 업적",
+    "explanation": "도선국사비·무학대사비 등으로 알려졌던 비석을 김정희가 진흥왕의 순수비로 고증했다는 단서는 북한산 진흥왕 순수비다. 진흥왕은 거칠부 등에게 국사 편찬을 명했으므로 정답은 ⑤다.",
+    "choiceNotes": [
+      "관료전 지급·녹읍 폐지 · 통일 신라 신문왕의 정책이다. 삼국 시대 진흥왕과 구별한다.",
+      "독서삼품과 설치(788) · 통일 신라 원성왕의 인재 선발 제도다.",
+      "이차돈의 순교를 계기로 불교 공인(527) · 신라 법흥왕의 업적이다.",
+      "외사정 파견(673) · 통일 신라 문무왕 때 지방관을 감찰하기 위해 시행했다. 진흥왕의 정책이 아니다.",
+      "거칠부 등에게 국사 편찬 명령(545) · 진흥왕의 업적이다. 북한산 순수비를 세운 왕에 해당하므로 정답이다."
+    ]
+  }
+]

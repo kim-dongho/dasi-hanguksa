@@ -94,6 +94,9 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
           <Link className="secondary" to="/practice?collection=prehistoric">
             선사 시대 (1문항) →
           </Link>
+          <Link className="secondary" to="/practice?collection=three-kingdoms">
+            삼국 시대 (4문항) →
+          </Link>
         </div>
       ) : null}
       {mode !== 'wrong' && !selected ? (
