@@ -23,6 +23,8 @@ describe('original practice flow', () => {
       localStorage.setItem('original-exam-questions-v1', JSON.stringify(initial));
       const memos = JSON.stringify({ [first.id]: ['남겨둘 메모', '', '', '', ''] });
       localStorage.setItem('original-exam-choice-memos-v1', memos);
+      const questionMemos = JSON.stringify({ [first.id]: '문제 핵심 단서' });
+      localStorage.setItem('original-exam-question-memos-v1', questionMemos);
       const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false);
       try {
         const view = render(
@@ -44,6 +46,7 @@ describe('original practice flow', () => {
           [other.id]: { selected: other.answer },
         });
         expect(localStorage.getItem('original-exam-choice-memos-v1')).toBe(memos);
+        expect(localStorage.getItem('original-exam-question-memos-v1')).toBe(questionMemos);
         expect(
           within(screen.getByLabelText('학습 현황')).getByText('점수').nextElementSibling,
         ).toHaveTextContent(/^0 \/ /);
@@ -51,6 +54,7 @@ describe('original practice flow', () => {
         if (location === 'practice') {
           expect(screen.queryByText('채점 후 복습')).not.toBeInTheDocument();
           expect(screen.getByRole('textbox', { name: '①번 메모' })).toHaveValue('남겨둘 메모');
+          expect(screen.getByRole('textbox', { name: '문제 메모' })).toHaveValue('문제 핵심 단서');
           await user.click(screen.getByRole('radio', { name: /^1번/ }));
           await user.click(screen.getByRole('button', { name: '채점하기' }));
           await user.click(screen.getByRole('button', { name: '풀이 초기화' }));
@@ -90,6 +94,7 @@ describe('original practice flow', () => {
     );
     expect(screen.getByAltText('77회 20번 원문 전체. 배점 3점.')).toBeInTheDocument();
     expect(screen.queryByText('채점 후 복습')).not.toBeInTheDocument();
+    await user.type(screen.getByRole('textbox', { name: '문제 메모' }), '세조 · 간경도감이 단서');
     await user.type(screen.getByRole('textbox', { name: '①번 메모' }), '연산군 · 무오사화');
     await user.type(screen.getByRole('textbox', { name: '②번 메모' }), '태종');
     await user.click(screen.getByRole('radio', { name: /^1번/ }));
@@ -105,8 +110,12 @@ describe('original practice flow', () => {
     await user.click(screen.getByRole('button', { name: '채점하기' }));
     expect(screen.getByText('정답 · 3점')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: '다음 →' }));
+    expect(screen.getByRole('textbox', { name: '문제 메모' })).toHaveValue('');
     expect(screen.getByRole('textbox', { name: '①번 메모' })).toHaveValue('');
     await user.click(screen.getByRole('button', { name: '← 이전' }));
+    expect(screen.getByRole('textbox', { name: '문제 메모' })).toHaveValue(
+      '세조 · 간경도감이 단서',
+    );
     expect(screen.getByRole('textbox', { name: '②번 메모' })).toHaveValue('태종');
     view.unmount();
     render(
@@ -115,6 +124,9 @@ describe('original practice flow', () => {
       </MemoryRouter>,
     );
     expect(screen.getByRole('textbox', { name: '①번 메모' })).toHaveValue('연산군 · 무오사화');
+    expect(screen.getByRole('textbox', { name: '문제 메모' })).toHaveValue(
+      '세조 · 간경도감이 단서',
+    );
     expect(screen.getByText('정답 · 3점')).toBeInTheDocument();
   });
   it('keeps old 69th-exam personal mistakes available for review', () => {
