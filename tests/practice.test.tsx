@@ -9,6 +9,69 @@ import { ChoiceMemo } from '@/features/choice-memo';
 import { questions } from '@/entities/question';
 
 describe('original practice flow', () => {
+  it('keeps a bookmarked question after correct answers until its star is removed', async () => {
+    const user = userEvent.setup();
+    localStorage.setItem(
+      'original-exam-questions-v1',
+      JSON.stringify({ '77-20': { selected: 5 }, '76-19': { selected: 1 } }),
+    );
+    localStorage.setItem('original-exam-question-stars-v1', JSON.stringify({ '76-19': true }));
+    const study = render(
+      <MemoryRouter initialEntries={['/practice?collection=joseon-early&q=77-20']}>
+        <PracticePage />
+      </MemoryRouter>,
+    );
+    await user.click(screen.getByRole('button', { name: '문제 킵' }));
+    expect(JSON.parse(localStorage.getItem('original-exam-question-stars-v1')!)).toEqual({
+      '76-19': true,
+      '77-20': true,
+    });
+    expect(screen.getByRole('link', { name: '오답·별표 풀기 (2문항)' })).toBeInTheDocument();
+    study.unmount();
+    const home = render(
+      <MemoryRouter>
+        <HomePage />
+      </MemoryRouter>,
+    );
+    expect(screen.getByText('다시 풀 오답·별표 2문항')).toBeInTheDocument();
+    home.unmount();
+    const review = render(
+      <MemoryRouter initialEntries={['/practice?wrong=1&q=77-20']}>
+        <PracticePage />
+      </MemoryRouter>,
+    );
+    for (const radio of screen.getAllByRole('radio')) expect(radio).not.toBeChecked();
+    expect(screen.getByRole('button', { name: '문제 킵' })).toHaveAttribute('aria-pressed', 'true');
+    await user.click(screen.getByRole('radio', { name: /^5번/ }));
+    await user.click(screen.getByRole('button', { name: '채점하기' }));
+    expect(screen.getByText('정답 · 3점')).toBeInTheDocument();
+    review.unmount();
+    const list = render(
+      <MemoryRouter>
+        <QuestionBankPage mode="wrong" />
+      </MemoryRouter>,
+    );
+    expect(screen.getByRole('link', { name: /77회 20번/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /76회 19번/ })).toBeInTheDocument();
+    list.unmount();
+    const unstar = render(
+      <MemoryRouter initialEntries={['/practice?wrong=1&q=77-20']}>
+        <PracticePage />
+      </MemoryRouter>,
+    );
+    await user.click(screen.getByRole('button', { name: '문제 킵' }));
+    expect(JSON.parse(localStorage.getItem('original-exam-question-stars-v1')!)).toEqual({
+      '76-19': true,
+    });
+    unstar.unmount();
+    render(
+      <MemoryRouter>
+        <QuestionBankPage mode="wrong" />
+      </MemoryRouter>,
+    );
+    expect(screen.queryByRole('link', { name: /77회 20번/ })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /76회 19번/ })).toBeInTheDocument();
+  });
   it.each(['study', 'exam'])(
     'keeps the question beside the %s answers without selecting or grading an answer',
     async (mode) => {
@@ -29,6 +92,35 @@ describe('original practice flow', () => {
       expect(screen.getByRole('textbox', { name: '①번 메모' })).toHaveValue('');
       await user.click(keep);
       expect(keep).toHaveAttribute('aria-pressed', 'false');
+    },
+  );
+  it.each(['era', 'exam'] as const)(
+    'includes both correct and unanswered starred questions in the %s review filter',
+    async (mode) => {
+      const user = userEvent.setup();
+      const scoped = questions.filter(
+        (q) => q.exam >= 70 && (mode === 'era' ? q.eras.includes('kingdoms') : q.exam === 70),
+      );
+      const [correct, unanswered] = scoped;
+      localStorage.setItem(
+        'original-exam-questions-v1',
+        JSON.stringify({ [correct.id]: { selected: correct.answer } }),
+      );
+      localStorage.setItem(
+        'original-exam-question-stars-v1',
+        JSON.stringify({ [correct.id]: true, [unanswered.id]: true }),
+      );
+      render(
+        <MemoryRouter initialEntries={[`/?${mode}=${mode === 'era' ? 'kingdoms' : '70'}`]}>
+          <QuestionBankPage mode={mode} />
+        </MemoryRouter>,
+      );
+      await user.click(screen.getByRole('button', { name: '오답·별표 보기 (2문항)' }));
+      for (const q of [correct, unanswered]) {
+        expect(
+          screen.getByRole('link', { name: new RegExp(`${q.exam}회 ${q.number}번`) }),
+        ).toBeInTheDocument();
+      }
     },
   );
   it.each(['era', 'exam'] as const)(
@@ -54,15 +146,17 @@ describe('original practice flow', () => {
           <QuestionBankPage mode={mode} />
         </MemoryRouter>,
       );
-      await user.click(screen.getByRole('button', { name: '오답만 보기 (1문항)' }));
-      expect(screen.getByRole('button', { name: '오답만 보기 (1문항)' })).toHaveAttribute(
+      await user.click(screen.getByRole('button', { name: '오답·별표 보기 (1문항)' }));
+      expect(screen.getByRole('button', { name: '오답·별표 보기 (1문항)' })).toHaveAttribute(
         'aria-pressed',
         'true',
       );
       expect(screen.getByText(`${wrong.exam}회 ${wrong.number}번`)).toBeInTheDocument();
       expect(screen.queryByText(`${correct.exam}회 ${correct.number}번`)).not.toBeInTheDocument();
       expect(screen.queryByText(`${outside.exam}회 ${outside.number}번`)).not.toBeInTheDocument();
-      const retryUrl = screen.getByRole('link', { name: '오답 다시 풀기 →' }).getAttribute('href')!;
+      const retryUrl = screen
+        .getByRole('link', { name: '오답·별표 다시 풀기 →' })
+        .getAttribute('href')!;
       expect(retryUrl).toBe(`/practice?${mode}=${selected}&wrong=1`);
       archive.unmount();
       const practice = render(
@@ -87,8 +181,8 @@ describe('original practice flow', () => {
         </MemoryRouter>,
       );
       expect(screen.queryByText(`${wrong.exam}회 ${wrong.number}번`)).not.toBeInTheDocument();
-      expect(screen.queryByRole('link', { name: '오답 다시 풀기 →' })).not.toBeInTheDocument();
-      expect(screen.getByText(/남은 오답이 없어요/)).toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: '오답·별표 다시 풀기 →' })).not.toBeInTheDocument();
+      expect(screen.getByText(/남은 오답·별표 문항이 없어요/)).toBeInTheDocument();
       expect(JSON.parse(localStorage.getItem('original-exam-questions-v1')!)[outside.id]).toEqual({
         selected: (outside.answer % 5) + 1,
       });
@@ -110,6 +204,8 @@ describe('original practice flow', () => {
       localStorage.setItem('original-exam-choice-memos-v1', memos);
       const questionMemos = JSON.stringify({ [first.id]: '문제 핵심 단서' });
       localStorage.setItem('original-exam-question-memos-v1', questionMemos);
+      const stars = JSON.stringify({ [first.id]: true });
+      localStorage.setItem('original-exam-question-stars-v1', stars);
       const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false);
       try {
         const view = render(
@@ -132,6 +228,7 @@ describe('original practice flow', () => {
         });
         expect(localStorage.getItem('original-exam-choice-memos-v1')).toBe(memos);
         expect(localStorage.getItem('original-exam-question-memos-v1')).toBe(questionMemos);
+        expect(localStorage.getItem('original-exam-question-stars-v1')).toBe(stars);
         expect(
           within(screen.getByLabelText('학습 현황')).getByText('점수').nextElementSibling,
         ).toHaveTextContent(/^0 \/ /);

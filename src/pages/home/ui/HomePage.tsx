@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom';
-import { questions, eras } from '@/entities/question';
+import { questions, eras, useQuestionStars } from '@/entities/question';
 import { studyNotes } from '@/entities/study-note';
 import { useQuestionProgress } from '@/features/answer-question';
 export function HomePage() {
   const { results } = useQuestionProgress();
+  const { stars } = useQuestionStars();
   const answered = questions.filter((q) => results[q.id]);
-  const wrong = answered.filter((q) => results[q.id].selected !== q.answer);
+  const wrong = questions.filter(
+    (q) => stars[q.id] || (results[q.id] && results[q.id].selected !== q.answer),
+  );
   const entries = [
     {
       to: '/notes',
@@ -35,8 +38,8 @@ export function HomePage() {
       to: '/wrong',
       n: '04',
       title: '기출 오답',
-      description: '틀린 문제와 보기별 메모 다시 보기.',
-      meta: `다시 풀 오답 ${wrong.length}문항`,
+      description: '틀린 문제와 킵한 문제 함께 복습하기.',
+      meta: `다시 풀 오답·별표 ${wrong.length}문항`,
       symbol: '復',
     },
   ];
@@ -62,7 +65,7 @@ export function HomePage() {
             <b>{answered.length}</b>풀어본 문제
           </span>
           <span>
-            <b>{wrong.length}</b>남은 오답
+            <b>{wrong.length}</b>오답·별표 문항
           </span>
         </div>
       </section>

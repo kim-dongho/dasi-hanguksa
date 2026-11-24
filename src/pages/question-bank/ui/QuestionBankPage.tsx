@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom';
-import { questions, eras } from '@/entities/question';
+import { questions, eras, useQuestionStars } from '@/entities/question';
 import {
   ResetQuestionProgress,
   StudyProgress,
@@ -7,6 +7,7 @@ import {
 } from '@/features/answer-question';
 export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
   const { results } = useQuestionProgress();
+  const { stars } = useQuestionStars();
   const [params, setParams] = useSearchParams();
   const selected = params.get(mode === 'era' ? 'era' : 'exam');
   const onlyWrong = mode === 'wrong' || params.get('wrong') === '1';
@@ -18,7 +19,9 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
         ? q.eras.includes(selected as (typeof q.eras)[number])
         : q.exam === Number(selected)),
   );
-  const wrong = scoped.filter((q) => results[q.id] && results[q.id].selected !== q.answer);
+  const wrong = scoped.filter(
+    (q) => stars[q.id] || (results[q.id] && results[q.id].selected !== q.answer),
+  );
   const filtered = onlyWrong ? wrong : scoped;
   const practiceParams = new URLSearchParams();
   if (selected) practiceParams.set(mode === 'era' ? 'era' : 'exam', selected);
@@ -46,7 +49,7 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
         <h1>{title}</h1>
         <p>
           {mode === 'wrong'
-            ? '틀린 문제만 다시 풀어요. 다시 맞힌 문제는 다음 오답 목록에서 자동으로 빠집니다.'
+            ? '틀린 문제와 킵한 문제를 복습해요. 킵한 문제는 맞혀도 유지되며, 킵을 해제해야 목록에서 빠집니다.'
             : '지문·자료에서 묻는 시대 기준으로 분류했어요. 보기의 시대는 분류에 포함하지 않아요.'}
         </p>
       </header>
@@ -164,12 +167,12 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
                   })
                 }
               >
-                오답만 보기 ({wrong.length}문항)
+                오답·별표 보기 ({wrong.length}문항)
               </button>
             ) : null}
             {filtered.length ? (
               <Link className="primary" to={`/practice?${practiceParams}`}>
-                {onlyWrong ? '오답 다시 풀기 →' : '해설 보며 풀기 →'}
+                {onlyWrong ? '오답·별표 다시 풀기 →' : '해설 보며 풀기 →'}
               </Link>
             ) : null}
             {mode === 'exam' && selected && filtered.length ? (
@@ -187,7 +190,7 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
           {!filtered.length ? (
             <div className="empty">
               {onlyWrong
-                ? '남은 오답이 없어요. 다시 맞힌 문제는 오답 목록에서 제외됩니다.'
+                ? '남은 오답·별표 문항이 없어요. 킵하지 않고 다시 맞힌 문제는 목록에서 제외됩니다.'
                 : '해당 문항이 없어요.'}
             </div>
           ) : (
@@ -201,6 +204,11 @@ export function QuestionBankPage({ mode }: { mode: 'era' | 'exam' | 'wrong' }) {
                   </span>
                   <strong>
                     {q.exam}회 {q.number}번
+                    {stars[q.id] ? (
+                      <span className="ml-1 text-amber-500" aria-label="킵한 문제">
+                        ★
+                      </span>
+                    ) : null}
                   </strong>
                   <span>{q.eras.map((id) => eras.find((e) => e.id === id)?.name).join(' · ')}</span>
                   <small>{q.points}점</small>

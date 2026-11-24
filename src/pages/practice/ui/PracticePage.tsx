@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { questions } from '@/entities/question';
+import { questions, useQuestionStars } from '@/entities/question';
 import {
   AnswerQuestion,
   ExamAnswer,
@@ -12,6 +12,7 @@ import { ChoiceMemo } from '@/features/choice-memo';
 export function PracticePage() {
   const [params, setParams] = useSearchParams();
   const { results, gradeAnswers, saved } = useQuestionProgress();
+  const { stars } = useQuestionStars();
   const isExam = params.get('mode') === 'exam' && !params.get('era') && !params.get('wrong');
   const [draft, setDraft] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -32,7 +33,10 @@ export function PracticePage() {
         (q) => !params.get('era') || q.eras.includes(params.get('era') as (typeof q.eras)[number]),
       )
       .filter(
-        (q) => !params.get('wrong') || (results[q.id] && results[q.id].selected !== q.answer),
+        (q) =>
+          !params.get('wrong') ||
+          stars[q.id] ||
+          (results[q.id] && results[q.id].selected !== q.answer),
       ),
   );
   const current = pool.find((q) => q.id === params.get('q')) ?? pool[0];
@@ -72,7 +76,9 @@ export function PracticePage() {
   const wrongParams = new URLSearchParams(studyParams);
   wrongParams.delete('q');
   wrongParams.set('wrong', '1');
-  const remainingWrong = pool.filter((q) => results[q.id] && results[q.id].selected !== q.answer);
+  const remainingWrong = pool.filter(
+    (q) => stars[q.id] || (results[q.id] && results[q.id].selected !== q.answer),
+  );
   return (
     <main className={`mx-auto max-w-[1600px] px-4 pb-28 ${graded ? 'is-graded' : ''}`}>
       <div className="flex min-h-[62px] flex-wrap items-center justify-between gap-3 py-2 [&>div:first-child]:flex [&>div:first-child]:items-baseline [&>div:first-child]:gap-4 [&_h1]:text-lg [&_h1]:font-bold [&_small]:ml-2 [&_small]:text-[10px] [&_small]:font-normal [&_small]:text-muted [&_a]:text-xs [&_a]:text-muted [&_a]:no-underline">
@@ -89,7 +95,7 @@ export function PracticePage() {
             <StudyProgress questions={pool} results={results} />
             {!params.get('wrong') && remainingWrong.length ? (
               <Link className="secondary" to={`/practice?${wrongParams}`}>
-                오답만 풀기 ({remainingWrong.length}문항)
+                오답·별표 풀기 ({remainingWrong.length}문항)
               </Link>
             ) : null}
             {params.get('era') && !params.get('wrong') ? (
@@ -108,8 +114,8 @@ export function PracticePage() {
       </div>
       {params.get('wrong') ? (
         <p className="mb-3 text-xs text-muted">
-          오답 풀이 · 남은 오답 {remainingWrong.length}문항 · 맞힌 문제는 다음 오답 목록에서
-          제외됩니다.
+          오답·별표 풀이 · 남은 복습 {remainingWrong.length}문항 · 킵한 문제는 맞혀도 유지됩니다.
+          킵하지 않은 정답 문제는 다음 목록에서 제외됩니다.
         </p>
       ) : null}
       {isExam ? (
@@ -176,6 +182,11 @@ export function PracticePage() {
                   {(isExam ? draft[q.id] : results[q.id]) ? '●' : '○'}
                 </span>
                 {q.exam}회 {q.number}번
+                {stars[q.id] ? (
+                  <span className="text-amber-500" aria-label="킵한 문제">
+                    ★
+                  </span>
+                ) : null}
               </button>
             ))}
           </nav>
