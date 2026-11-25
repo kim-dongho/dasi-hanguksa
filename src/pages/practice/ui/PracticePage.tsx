@@ -26,7 +26,7 @@ export function PracticePage() {
           ? params.get('collection') === 'curated'
             ? q.collections?.includes('joseon-early')
             : q.collections?.includes(params.get('collection')!)
-          : !!params.get('wrong') || q.exam >= 70,
+          : !!params.get('wrong') || !!params.get('exam') || q.exam >= 70,
       )
       .filter((q) => !params.get('exam') || q.exam === Number(params.get('exam')))
       .filter(

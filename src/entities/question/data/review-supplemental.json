@@ -1,0 +1,422 @@
+[
+  {
+    "id": "69-4",
+    "exam": 69,
+    "number": 4,
+    "page": 1,
+    "answer": 5,
+    "points": 2,
+    "image": "/questions/review-pack/69-4.webp",
+    "width": 786,
+    "height": 930,
+    "eras": ["kingdoms"],
+    "choiceNotes": [
+      "미륵사 창건은 백제 무왕이다.",
+      "대야성 함락(642)은 백제 의자왕이다.",
+      "고국원왕이 전사한 평양성 공격(371)은 근초고왕이다.",
+      "신라 진흥왕과 한강 하류를 회복한 왕은 성왕이다.",
+      "22담로·왕족 파견·양과 외교 강화는 무령왕이다."
+    ],
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "explanation": "백제 웅진 시기-22담로에 왕족 파견은 무령왕의 업적이에요. 무령왕은 양에 사신을 보내 외교 관계를 강화했어요. 22담로·왕족 파견·양과 외교 강화는 무령왕이다."
+  },
+  {
+    "id": "69-7",
+    "exam": 69,
+    "number": 7,
+    "page": 1,
+    "answer": 4,
+    "points": 3,
+    "image": "/questions/review-pack/69-7.webp",
+    "width": 783,
+    "height": 805,
+    "eras": ["states"],
+    "choiceNotes": [
+      "기벌포가 백제·고구려 부흥 운동보다 먼저라는 순서는 틀리다.",
+      "백제 부흥 운동이 고구려 부흥 운동보다 먼저다.",
+      "기벌포는 고구려 부흥 운동보다 뒤다.",
+      "백제 부흥 운동 → 고구려 부흥 운동 → 기벌포(676) 순서다.",
+      "백제 부흥 운동이 고구려 부흥 운동보다 먼저다."
+    ],
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "explanation": "(나)는 백제 부흥 운동, (다)는 고구려 부흥 운동, (가)는 676년 기벌포 전투예요. 백제 멸망 뒤 부흥 운동 고구려 멸망 뒤 부흥 운동 > 신라의 기벌포 승리 순서예요. 백제 부흥 운동 → 고구려 부흥 운동 → 기벌포(676) 순서다."
+  },
+  {
+    "id": "69-10",
+    "exam": 69,
+    "number": 10,
+    "page": 1,
+    "answer": 5,
+    "points": 1,
+    "image": "/questions/review-pack/69-10.webp",
+    "width": 773,
+    "height": 803,
+    "eras": ["goryeo"],
+    "choiceNotes": [
+      "양현고는 고려 예종의 관학 진흥 재단이다.",
+      "쌍기의 건의로 과거제를 실시한 왕은 광종이다.",
+      "12목 설치·지방관 파견은 성종이다.",
+      "시정 전시과를 처음 시행한 왕은 경종이다.",
+      "개태사·후삼국 통일·훈요 10조는 태조 왕건이다."
+    ],
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "explanation": "후삼국 통일을 기념한 개태사를 세운 왕은 고려 태조 왕건이에요. 태조는 후대 왕에게 정책 방향을 제시한 훈요 10조를 남 겼어요. 개태사·후삼국 통일·훈요 10조는 태조 왕건이다."
+  },
+  {
+    "id": "69-11",
+    "exam": 69,
+    "number": 11,
+    "page": 1,
+    "answer": 2,
+    "points": 3,
+    "image": "/questions/review-pack/69-11.webp",
+    "width": 779,
+    "height": 846,
+    "eras": ["goryeo"],
+    "choiceNotes": [
+      "정몽주 피살은 개경 선죽교와 연결된다.",
+      "서경에서 묘청이 천도·금 정벌을 주장하며 봉기하고 대위국을 세웠다.",
+      "황룡사 9층 목탑 소실은 경주이다.",
+      "흥덕사에서 직지를 간행한 지역은 청주이다.",
+      "정서의 정과정은 동래 유배와 연결된다."
+    ],
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "explanation": "서도•호경, 조위총의 봉기, 동녕부는 고려 서경(평양)의 역사예요. 서경에서는 묘청이 천도와 금 정벌을 주장하다 봉기했어 요. 서경에서 묘청이 천도·금 정벌을 주장하며 봉기하고 대위국을 세웠다."
+  },
+  {
+    "id": "69-13",
+    "exam": 69,
+    "number": 13,
+    "page": 2,
+    "answer": 5,
+    "points": 2,
+    "image": "/questions/review-pack/69-13.webp",
+    "width": 774,
+    "height": 705,
+    "eras": ["goryeo"],
+    "choiceNotes": [
+      "광군은 고려 정종 때 거란 침입에 대비하여 창설했다.",
+      "박위의 쓰시마 정벌은 고려 말 왜구 대응이다.",
+      "강화 천도는 몽골 침입에 맞선 최우 집권기의 일이다.",
+      "만부교 사건의 상대는 거란이다.",
+      "윤관·별무반·여진 정벌·동북 9성을 연결한다."
+    ],
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "explanation": "윤관•오연총의 정벌 대상은 여진이에요. 윤관은 별무반을 이끌고 여진을 정벌한 뒤 동북 9성을 설치했어요. 윤관·별무반·여진 정벌·동북 9성을 연결한다."
+  },
+  {
+    "id": "69-15",
+    "exam": 69,
+    "number": 15,
+    "page": 2,
+    "answer": 5,
+    "points": 2,
+    "image": "/questions/review-pack/69-15.webp",
+    "width": 771,
+    "height": 587,
+    "eras": ["goryeo"],
+    "choiceNotes": [
+      "고려 건국~강조의 정변 사이로 조일신의 난보다 앞이다.",
+      "강조의 정변~이자겸의 난 사이로 조일신의 난보다 앞이다.",
+      "이자겸의 난~만적의 봉기 모의 사이로 조일신의 난보다 앞이다.",
+      "만적의 봉기 모의~개경 환도 사이로 조일신의 난보다 앞이다.",
+      "조일신의 난(1352)은 개경 환도(1270)와 고려 멸망(1392) 사이이다."
+    ],
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "explanation": "조일신의 난은 공민왕 초인 1352년에 일어났어요. 따라서 개경 환도(1270)와 고려 멸망(1392) 사이인 (마)예요. 조일신의 난(1352)은 개경 환도(1270)와 고려 멸망(1392) 사이이다."
+  },
+  {
+    "id": "69-18",
+    "exam": 69,
+    "number": 18,
+    "page": 2,
+    "answer": 1,
+    "points": 2,
+    "image": "/questions/review-pack/69-18.webp",
+    "width": 773,
+    "height": 955,
+    "eras": ["goryeo"],
+    "choiceNotes": [
+      "위화도 회군 뒤 죽은 최영은 홍산 전투에서 왜구를 격퇴했다.",
+      "화통도감 설치를 건의한 인물은 최무선이다.",
+      "정변으로 목종을 폐위한 인물은 강조이다.",
+      "이괄의 난은 조선 인조 때이다.",
+      "교정별감으로 권력을 장악한 인물은 최충헌이다."
+    ],
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "explanation": "요동 정벌을 추진한 팔도도통사, 위화도 회군 뒤 죽은 인물은 최영이에요. 최영은 홍산 전투에서 왜구를 물리쳤어요. 위화도 회군 뒤 죽은 최영은 홍산 전투에서 왜구를 격퇴했다."
+  },
+  {
+    "id": "69-23",
+    "exam": 69,
+    "number": 23,
+    "page": 2,
+    "answer": 1,
+    "points": 2,
+    "image": "/questions/review-pack/69-23.webp",
+    "width": 772,
+    "height": 985,
+    "eras": ["joseon-late"],
+    "choiceNotes": [
+      "병자호란의 치욕을 씻으려는 북벌론이 효종·이완과 연결된다.",
+      "김종서의 6진 개척은 세종 때 여진 대응이다.",
+      "이종무의 쓰시마 정벌은 세종 때이다.",
+      "강홍립의 사르후 전투 참전은 광해군 때이다.",
+      "비변사의 최초 설치는 병자호란보다 앞선다."
+    ],
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "explanation": "강화도 함락·삼전도 항복·청에 끌려간 포로는 병자호란이에요. 치욕을 씻으려는 북벌론이 효종 때 이완 등을 중심으로 추 진되었어요. 병자호란의 치욕을 씻으려는 북벌론이 효종·이완과 연결된다."
+  },
+  {
+    "id": "69-24",
+    "exam": 69,
+    "number": 24,
+    "page": 3,
+    "answer": 1,
+    "points": 2,
+    "image": "/questions/review-pack/69-24.webp",
+    "width": 785,
+    "height": 619,
+    "eras": ["joseon-early"],
+    "choiceNotes": [
+      "직전법·간경도감은 세조이다.",
+      "악학궤범은 성종 때 편찬되었다.",
+      "혼일강리역대국도지도는 태종 때 제작되었다.",
+      "초계문신제는 정조이다.",
+      "농사직설은 세종 때 편찬되었다."
+    ],
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "explanation": "수신전·휼양전이 있던 과전법을 직전법으로 바꾼 왕은 세조예요. 세조 때 불경을 간행하는 간경도감이 설치되었어요. 직전법·간경도감은 세조이다."
+  },
+  {
+    "id": "69-26",
+    "exam": 69,
+    "number": 26,
+    "page": 3,
+    "answer": 2,
+    "points": 3,
+    "image": "/questions/review-pack/69-26.webp",
+    "width": 788,
+    "height": 674,
+    "eras": ["joseon-late"],
+    "choiceNotes": [
+      "이징옥의 난은 단종 때이다.",
+      "숙종의 기사환국(1689) 때 송시열이 사사되었다.",
+      "자의 대비 복상 예송은 현종 때이다.",
+      "기축옥사는 선조 때이다.",
+      "탕평비 건립은 영조 때이다."
+    ],
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "explanation": "희빈 장씨 아들의 원자 책봉(1689)과 장씨를 다시 희빈으로 낮춘 갑술환국(1694) 사이를 물어요. 1689년 기사환국 때 서인이 축출되고 송시열이 사사되었어요. 숙종의 기사환국(1689) 때 송시열이 사사되었다."
+  },
+  {
+    "id": "69-36",
+    "exam": 69,
+    "number": 36,
+    "page": 3,
+    "answer": 1,
+    "points": 2,
+    "image": "/questions/review-pack/69-36.webp",
+    "width": 765,
+    "height": 874,
+    "eras": ["occupation"],
+    "choiceNotes": [
+      "김원봉·황상규의 의열단은 조선 혁명 선언을 활동 지침으로 삼았다.",
+      "삼균주의에 기초한 건국 강령은 대한민국 임시정부이다.",
+      "개벽은 천도교 계열의 잡지이다.",
+      "윤봉길의 의거는 김구의 한인 애국단과 연결된다.",
+      "국권 반환 요구서는 독립의군부와 연결된다."
+    ],
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "explanation": "황상규·김원봉, 1919년 조직, 일제 기관 파괴와 요인 처단은 의열단의 단서예요. 의열단은 신채호가 쓴 조선 혁명 선언을 활동 지침으로 삼았어요. 김원봉·황상규의 의열단은 조선 혁명 선언을 활동 지침으로 삼았다."
+  },
+  {
+    "id": "69-41",
+    "exam": 69,
+    "number": 41,
+    "page": 4,
+    "answer": 4,
+    "points": 2,
+    "image": "/questions/review-pack/69-41.webp",
+    "width": 788,
+    "height": 627,
+    "eras": ["occupation"],
+    "choiceNotes": [
+      "자유시 참변(1921)은 한국광복군 창설보다 앞이다.",
+      "영릉가 전투는 양세봉의 조선혁명군이다.",
+      "쌍성보 전투는 지청천의 한국독립군이다.",
+      "충칭·지청천·한국광복군·OSS·국내 정진군을 연결한다.",
+      "청산리 전투(1920)는 북로군정서 등 독립군 부대의 전투이다."
+    ],
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "explanation": "지청천 지휘·충칭 총사령부·조선 의용대 일부 편입은 한국광복군의 단서예요. 한국광복군은 미국 OSS와 협력하고 국내 정진군을 편성해 국내 진공을 준비했어요. 충칭·지청천·한국광복군·OSS·국내 정진군을 연결한다."
+  },
+  {
+    "id": "69-47",
+    "exam": 69,
+    "number": 47,
+    "page": 4,
+    "answer": 2,
+    "points": 3,
+    "image": "/questions/review-pack/69-47.webp",
+    "width": 777,
+    "height": 1066,
+    "eras": ["integrated"],
+    "choiceNotes": [
+      "개항기 무위영보다 숙종 때 금위영이 먼저이다.",
+      "9서당 → 2군 6위 → 금위영 → 무위영 순서이다.",
+      "통일 신라의 9서당이 고려의 2군 6위보다 먼저이다.",
+      "신라 군제를 개항기 군제보다 뒤에 놓은 순서이다.",
+      "시대의 선후 관계가 거꾸로 되어 있다."
+    ],
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "explanation": "(가)는 통일 신라 9서당, (나)는 고려 2군 6위, (라)는 숙종 때 금위영, (다)는 개항 후 무위영이에요. 고대 > 고려 > 조선 후기 * 개항기 순인 (가)-(나)-(라)-(다)를 골라요. 9서당 → 2군 6위 → 금위영 → 무위영 순서이다."
+  },
+  {
+    "id": "69-48",
+    "exam": 69,
+    "number": 48,
+    "page": 4,
+    "answer": 1,
+    "points": 2,
+    "image": "/questions/review-pack/69-48.webp",
+    "width": 711,
+    "height": 929,
+    "eras": ["states"],
+    "choiceNotes": [
+      "보덕국 유민을 9서당에 편성한 신문왕은 김흠돌의 난을 진압했다.",
+      "병부·상대등 설치는 법흥왕이다.",
+      "나선 정벌은 조선 효종 때이다.",
+      "정계·계백료서는 고려 태조이다.",
+      "쌍성총관부 수복은 고려 공민왕이다."
+    ],
+    "source": {
+      "exam": 69,
+      "pageUrl": "https://www.historyexam.go.kr/pst/view.do?bbs=dat&pst_sno=1000029997",
+      "questions": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202232240"
+      },
+      "answers": {
+        "url": "https://www.historyexam.go.kr/atchFile/FileDown.do?atch_file_id=B_202402171202233941"
+      }
+    },
+    "explanation": "9서당을 정비하며 보덕국 유민을 편성한 밑줄의 왕은 신문왕이에요. 신문왕은 즉위 초 김흠돌의 난을 진압하여 귀족 세력 을 약화했어요. 보덕국 유민을 9서당에 편성한 신문왕은 김흠돌의 난을 진압했다."
+  }
+]
