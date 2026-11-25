@@ -16,6 +16,7 @@ export function SiteHeader() {
             ['/eras', '시대별 기출'],
             ['/exams', '회차별 기출'],
             ['/wrong', '기출 오답'],
+            ['/review', '148문항 복습'],
           ].map(([to, label]) => (
             <NavLink key={to} to={to}>
               {label}

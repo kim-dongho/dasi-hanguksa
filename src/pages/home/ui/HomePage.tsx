@@ -69,6 +69,18 @@ export function HomePage() {
           </span>
         </div>
       </section>
+      <Link
+        to="/review"
+        className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-control bg-panel px-5 py-4 no-underline"
+      >
+        <span>
+          <strong className="block text-sm text-moss">148문항 압축 복습</strong>
+          <span className="mt-1 block text-xs text-muted">
+            오답·별표 전부를 주제별로 · 단서와 혼동 구별 · 자동 이어보기
+          </span>
+        </span>
+        <span className="text-sm font-semibold">바로 복습하기 →</span>
+      </Link>
       <section className="grid grid-cols-2 gap-4 lg:grid-cols-4" aria-label="학습 메뉴">
         {entries.map((entry) => (
           <Link to={entry.to} className="home-card" key={entry.to}>

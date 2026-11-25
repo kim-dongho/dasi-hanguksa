@@ -3,6 +3,7 @@ import { HomePage } from '@/pages/home';
 import { QuestionBankPage } from '@/pages/question-bank';
 import { PracticePage } from '@/pages/practice';
 import { NotebookPage } from '@/pages/notebook';
+import { CramReviewPage } from '@/pages/cram-review';
 import { SiteHeader } from '@/widgets/site-header';
 function PracticeRoute() {
   const location = useLocation();
@@ -20,6 +21,7 @@ export function App() {
         <Route path="/eras" element={<QuestionBankPage mode="era" />} />
         <Route path="/exams" element={<QuestionBankPage mode="exam" />} />
         <Route path="/wrong" element={<QuestionBankPage mode="wrong" />} />
+        <Route path="/review" element={<CramReviewPage />} />
         <Route path="/practice" element={<PracticeRoute />} />
         <Route
           path="/joseon-early-review.html"
