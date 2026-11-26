@@ -81,6 +81,9 @@ export function HomePage() {
         </span>
         <span className="text-sm font-semibold">바로 복습하기 →</span>
       </Link>
+      <Link className="secondary mb-5" to="/keywords">
+        한 줄 키워드 암기 · 문화·종교 먼저 →
+      </Link>
       <section className="grid grid-cols-2 gap-4 lg:grid-cols-4" aria-label="학습 메뉴">
         {entries.map((entry) => (
           <Link to={entry.to} className="home-card" key={entry.to}>

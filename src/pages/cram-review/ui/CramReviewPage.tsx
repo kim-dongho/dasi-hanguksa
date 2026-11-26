@@ -221,6 +221,9 @@ export function CramReviewPage() {
       <header className="mb-5">
         <span className="eyebrow">LAST-MINUTE REVIEW</span>
         <h1 className="my-2 text-2xl font-bold">148문항 압축 복습</h1>
+        <Link className="mb-3 inline-block text-xs font-semibold text-moss" to="/keywords">
+          한 줄 키워드로 정리하기 →
+        </Link>
         <p className="text-xs leading-6 text-muted">
           제공한 오답·별표 148문항을 {reviewPack.groups.length}개 주제로 묶었어요. 단서 떠올리기 →
           해설 확인 → 기억남·다시 보기 순서로 복습하세요. 기억남 문항은 기본 목록에서 제외됩니다.

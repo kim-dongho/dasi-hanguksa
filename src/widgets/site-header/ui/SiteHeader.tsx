@@ -10,13 +10,14 @@ export function SiteHeader() {
         <span>史</span> 다시, 한국사
       </Link>
       <div className="flex flex-wrap items-center gap-4 max-sm:w-full">
-        <nav aria-label="주 메뉴">
+        <nav aria-label="주 메뉴" className="flex flex-wrap">
           {[
             ['/notes', '오답노트'],
             ['/eras', '시대별 기출'],
             ['/exams', '회차별 기출'],
             ['/wrong', '기출 오답'],
             ['/review', '148문항 복습'],
+            ['/keywords', '키워드 암기'],
           ].map(([to, label]) => (
             <NavLink key={to} to={to}>
               {label}

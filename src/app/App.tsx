@@ -4,6 +4,7 @@ import { QuestionBankPage } from '@/pages/question-bank';
 import { PracticePage } from '@/pages/practice';
 import { NotebookPage } from '@/pages/notebook';
 import { CramReviewPage } from '@/pages/cram-review';
+import { KeywordsPage } from '@/pages/keywords';
 import { SiteHeader } from '@/widgets/site-header';
 function PracticeRoute() {
   const location = useLocation();
@@ -22,6 +23,7 @@ export function App() {
         <Route path="/exams" element={<QuestionBankPage mode="exam" />} />
         <Route path="/wrong" element={<QuestionBankPage mode="wrong" />} />
         <Route path="/review" element={<CramReviewPage />} />
+        <Route path="/keywords" element={<KeywordsPage />} />
         <Route path="/practice" element={<PracticeRoute />} />
         <Route
           path="/joseon-early-review.html"

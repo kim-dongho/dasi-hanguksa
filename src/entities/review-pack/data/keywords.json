@@ -1,0 +1,765 @@
+[
+  {
+    "id": "keyword-001",
+    "category": "culture",
+    "clue": "걸사표·세속 5계",
+    "answer": "신라 원광, 진평왕 때",
+    "questionIds": ["71-4"]
+  },
+  {
+    "id": "keyword-002",
+    "category": "culture",
+    "clue": "무애가·불교 대중화",
+    "answer": "원효; 세속 5계의 원광과 구별",
+    "questionIds": ["71-4"]
+  },
+  {
+    "id": "keyword-003",
+    "category": "culture",
+    "clue": "화엄종·부석사",
+    "answer": "의상; 천태종의 의천과 구별",
+    "questionIds": ["78-17", "80-16"]
+  },
+  {
+    "id": "keyword-004",
+    "category": "culture",
+    "clue": "황룡사 9층 목탑 건의",
+    "answer": "자장 → 선덕 여왕",
+    "questionIds": ["71-4"]
+  },
+  {
+    "id": "keyword-005",
+    "category": "culture",
+    "clue": "왕오천축국전",
+    "answer": "혜초의 인도·중앙아시아 구법 여행기",
+    "questionIds": ["71-4", "79-5"]
+  },
+  {
+    "id": "keyword-006",
+    "category": "culture",
+    "clue": "송악명당기·풍수지리",
+    "answer": "신라 말 도선",
+    "questionIds": ["71-4"]
+  },
+  {
+    "id": "keyword-007",
+    "category": "culture",
+    "clue": "교장·천태종·교관겸수",
+    "answer": "고려 의천; 선·교 수행을 함께",
+    "questionIds": ["78-17"]
+  },
+  {
+    "id": "keyword-008",
+    "category": "culture",
+    "clue": "수선사·정혜쌍수·돈오점수",
+    "answer": "고려 지눌",
+    "questionIds": ["78-17", "80-16"]
+  },
+  {
+    "id": "keyword-009",
+    "category": "culture",
+    "clue": "백련사·백련 결사·법화 신앙",
+    "answer": "고려 요세; 지눌의 수선사와 구별",
+    "questionIds": ["80-16"]
+  },
+  {
+    "id": "keyword-010",
+    "category": "culture",
+    "clue": "보현십원가",
+    "answer": "고려 균여; 의상의 화엄일승법계도와 구별",
+    "questionIds": ["80-16"]
+  },
+  {
+    "id": "keyword-011",
+    "category": "culture",
+    "clue": "주희 저서 도입·성리학·소수서원 배향",
+    "answer": "고려 안향",
+    "questionIds": ["77-15"]
+  },
+  {
+    "id": "keyword-012",
+    "category": "culture",
+    "clue": "성학십도·사단칠정·기대승",
+    "answer": "이황; 성학집요는 이이",
+    "questionIds": ["74-23"]
+  },
+  {
+    "id": "keyword-013",
+    "category": "culture",
+    "clue": "성호·곽우록·영업전·한전론",
+    "answer": "이익; 균전론은 유형원, 여전론은 정약용",
+    "questionIds": ["76-24"]
+  },
+  {
+    "id": "keyword-014",
+    "category": "culture",
+    "clue": "기전체·신라 상대/중대/하대·삼국사기",
+    "answer": "고려 인종 때 김부식",
+    "questionIds": ["77-17", "79-15"]
+  },
+  {
+    "id": "keyword-015",
+    "category": "culture",
+    "clue": "단군·불교 설화·향가·삼국유사",
+    "answer": "고려 후기 일연",
+    "questionIds": ["77-17", "79-15"]
+  },
+  {
+    "id": "keyword-016",
+    "category": "culture",
+    "clue": "주몽의 건국·서사시·동명왕편",
+    "answer": "고려 이규보",
+    "questionIds": ["79-15"]
+  },
+  {
+    "id": "keyword-017",
+    "category": "culture",
+    "clue": "발해고·남북국 인식",
+    "answer": "조선 후기 유득공",
+    "questionIds": ["79-15"]
+  },
+  {
+    "id": "keyword-018",
+    "category": "culture",
+    "clue": "청방인문표·외교 문장·중원경",
+    "answer": "신라 강수; 화왕계·이두는 설총",
+    "questionIds": ["79-5"]
+  },
+  {
+    "id": "keyword-019",
+    "category": "culture",
+    "clue": "시무 10여 조·진성 여왕·계원필경",
+    "answer": "최치원; 시무 28조는 최승로",
+    "questionIds": ["70-8"]
+  },
+  {
+    "id": "keyword-020",
+    "category": "culture",
+    "clue": "역옹패설",
+    "answer": "고려 후기 이제현",
+    "questionIds": ["71-17"]
+  },
+  {
+    "id": "keyword-021",
+    "category": "culture",
+    "clue": "단원·씨름",
+    "answer": "김홍도; 금강전도는 정선",
+    "questionIds": ["70-27"]
+  },
+  {
+    "id": "keyword-022",
+    "category": "culture",
+    "clue": "혜원·연소답청·월하정인",
+    "answer": "신윤복; 김홍도와 구별",
+    "questionIds": ["76-27", "70-27"]
+  },
+  {
+    "id": "keyword-023",
+    "category": "culture",
+    "clue": "추사체·세한도·불이선란도·제주 유배",
+    "answer": "김정희",
+    "questionIds": ["71-25", "76-46", "78-26"]
+  },
+  {
+    "id": "keyword-024",
+    "category": "culture",
+    "clue": "고사관수도",
+    "answer": "조선 전기 강희안",
+    "questionIds": ["72-23"]
+  },
+  {
+    "id": "keyword-025",
+    "category": "culture",
+    "clue": "가면·오방색 옷·벽사 의식·궁중 춤",
+    "answer": "처용무",
+    "questionIds": ["71-30"]
+  },
+  {
+    "id": "keyword-026",
+    "category": "culture",
+    "clue": "무영탑·무구정광대다라니경",
+    "answer": "통일 신라 불국사 석가탑",
+    "questionIds": ["71-7"]
+  },
+  {
+    "id": "keyword-027",
+    "category": "culture",
+    "clue": "정혜 공주 묘의 모줄임천장",
+    "answer": "발해의 고구려 계승",
+    "questionIds": ["72-7"]
+  },
+  {
+    "id": "keyword-028",
+    "category": "culture",
+    "clue": "수시력·화통도감·상감 청자와 같은 시대",
+    "answer": "고려 → 금속활자·직지; 칠정산은 조선",
+    "questionIds": ["75-17"]
+  },
+  {
+    "id": "keyword-029",
+    "category": "politics",
+    "clue": "개태사·후삼국 통일·훈요 10조",
+    "answer": "고려 태조 왕건",
+    "questionIds": ["69-10", "73-11"]
+  },
+  {
+    "id": "keyword-030",
+    "category": "politics",
+    "clue": "공산 전투에서 왕건 대신 전사",
+    "answer": "신숭겸; 고창 전투 승리는 왕건",
+    "questionIds": ["78-10", "73-11"]
+  },
+  {
+    "id": "keyword-031",
+    "category": "politics",
+    "clue": "노비안검법·과거제·광덕/준풍·제위보",
+    "answer": "고려 광종",
+    "questionIds": ["74-11", "78-11", "77-14"]
+  },
+  {
+    "id": "keyword-032",
+    "category": "politics",
+    "clue": "최승로·시무 28조·12목·국자감",
+    "answer": "고려 성종; 홍문관은 조선 성종",
+    "questionIds": ["72-11", "75-11", "80-11", "70-19"]
+  },
+  {
+    "id": "keyword-033",
+    "category": "politics",
+    "clue": "주전도감·해동통보",
+    "answer": "고려 숙종; 상평통보 본격 유통은 조선 숙종",
+    "questionIds": ["70-13", "78-25"]
+  },
+  {
+    "id": "keyword-034",
+    "category": "politics",
+    "clue": "왕규의 난 → 강조의 정변 → 이자겸의 난",
+    "answer": "혜종 → 목종 폐위·현종 옹립 → 인종",
+    "questionIds": ["76-14"]
+  },
+  {
+    "id": "keyword-035",
+    "category": "politics",
+    "clue": "척준경·금 사대",
+    "answer": "이자겸; 서경·대위국은 묘청",
+    "questionIds": ["78-18"]
+  },
+  {
+    "id": "keyword-036",
+    "category": "politics",
+    "clue": "서경 천도·금 정벌·대위국",
+    "answer": "묘청의 난 (1135년)",
+    "questionIds": ["78-18", "69-11"]
+  },
+  {
+    "id": "keyword-037",
+    "category": "politics",
+    "clue": "정중부·의종 폐위",
+    "answer": "무신 정변 (1170년)",
+    "questionIds": ["70-14"]
+  },
+  {
+    "id": "keyword-038",
+    "category": "politics",
+    "clue": "경대승 도방 → 최충헌 만적 → 최우 정방",
+    "answer": "순서로 기억; 정방은 인사 담당 (1225년)",
+    "questionIds": ["80-15"]
+  },
+  {
+    "id": "keyword-039",
+    "category": "politics",
+    "clue": "야별초 → 좌별초·우별초 + 신의군",
+    "answer": "최우의 삼별초; 몽골과 강화에 반대",
+    "questionIds": ["76-12", "75-12"]
+  },
+  {
+    "id": "keyword-040",
+    "category": "politics",
+    "clue": "윤관·오연총·별무반·동북 9성",
+    "answer": "여진 정벌; 광군은 거란 대비",
+    "questionIds": ["69-13", "78-13"]
+  },
+  {
+    "id": "keyword-041",
+    "category": "politics",
+    "clue": "강조의 정변을 구실로 침입·개경 함락",
+    "answer": "거란의 2차 침입, 고려 현종 때",
+    "questionIds": ["80-12"]
+  },
+  {
+    "id": "keyword-042",
+    "category": "politics",
+    "clue": "강화 천도·김윤후의 충주산성 항전",
+    "answer": "몽골 침입; 여진 정벌과 구별",
+    "questionIds": ["69-13", "75-12", "76-16"]
+  },
+  {
+    "id": "keyword-043",
+    "category": "politics",
+    "clue": "요동 정벌 반대·위화도 회군 뒤 죽음·홍산 전투",
+    "answer": "최영, 왜구 격퇴; 화통도감은 최무선",
+    "questionIds": ["69-18"]
+  },
+  {
+    "id": "keyword-044",
+    "category": "politics",
+    "clue": "조일신의 난·기철 제거·쌍성총관부 수복",
+    "answer": "공민왕; 복주 피란은 홍건적 침입",
+    "questionIds": ["69-15", "73-17", "75-15", "78-16"]
+  },
+  {
+    "id": "keyword-045",
+    "category": "politics",
+    "clue": "공녀·변발·호복·응방·권문세족",
+    "answer": "고려 원 간섭기",
+    "questionIds": ["74-17", "79-16"]
+  },
+  {
+    "id": "keyword-046",
+    "category": "politics",
+    "clue": "5도 양계·주현/속현·향/부곡/소",
+    "answer": "고려 지방 통치; 속현에는 지방관 미파견",
+    "questionIds": ["78-15"]
+  },
+  {
+    "id": "keyword-047",
+    "category": "politics",
+    "clue": "웅진·22담로·왕족 파견·양과 외교",
+    "answer": "백제 무령왕; 미륵사는 무왕",
+    "questionIds": ["69-4", "72-4"]
+  },
+  {
+    "id": "keyword-048",
+    "category": "politics",
+    "clue": "사비 천도·남부여·관산성 전사",
+    "answer": "백제 성왕; 대야성 함락은 의자왕",
+    "questionIds": ["74-4", "78-4", "72-4"]
+  },
+  {
+    "id": "keyword-049",
+    "category": "politics",
+    "clue": "대로·패자·고추가·대대로·욕살·처려근지",
+    "answer": "고구려 관직",
+    "questionIds": ["75-5", "80-2"]
+  },
+  {
+    "id": "keyword-050",
+    "category": "politics",
+    "clue": "고령·지산동 고분군",
+    "answer": "대가야; 김해·대성동은 금관가야",
+    "questionIds": ["75-4"]
+  },
+  {
+    "id": "keyword-051",
+    "category": "politics",
+    "clue": "천마총·금령총·천마도",
+    "answer": "신라",
+    "questionIds": ["77-4"]
+  },
+  {
+    "id": "keyword-052",
+    "category": "politics",
+    "clue": "연 장수 진개 공격 → 위만 집권 → 한 군현",
+    "answer": "고조선의 변화 순서",
+    "questionIds": ["78-2"]
+  },
+  {
+    "id": "keyword-053",
+    "category": "politics",
+    "clue": "관산성 554 → 대가야 562 → 대야성 642",
+    "answer": "이후 나당 동맹 648 → 백제 멸망 660",
+    "questionIds": ["74-4", "78-4", "77-6"]
+  },
+  {
+    "id": "keyword-054",
+    "category": "politics",
+    "clue": "백제 부흥 → 고구려 부흥 → 기벌포",
+    "answer": "660년 이후 → 668년 이후 → 676년",
+    "questionIds": ["69-7", "74-6", "77-6"]
+  },
+  {
+    "id": "keyword-055",
+    "category": "politics",
+    "clue": "김흠돌의 난·국학·9주 5소경·9서당",
+    "answer": "통일 신라 신문왕",
+    "questionIds": ["69-48", "76-6", "80-6", "72-48"]
+  },
+  {
+    "id": "keyword-056",
+    "category": "politics",
+    "clue": "김경신·김주원과 왕위 경쟁·독서삼품과",
+    "answer": "원성왕; 국학 설치는 신문왕",
+    "questionIds": ["70-9", "76-9"]
+  },
+  {
+    "id": "keyword-057",
+    "category": "politics",
+    "clue": "혜공왕 피살·왕위 다툼·호족·원종/애노",
+    "answer": "신라 하대; 원종·애노는 진성 여왕 때",
+    "questionIds": ["75-6", "76-9", "77-10"]
+  },
+  {
+    "id": "keyword-058",
+    "category": "politics",
+    "clue": "청해진·해상 무역",
+    "answer": "신라 하대 장보고",
+    "questionIds": ["74-9", "77-10"]
+  },
+  {
+    "id": "keyword-059",
+    "category": "politics",
+    "clue": "일본 쇼소인·서원경 인근 4개 촌락",
+    "answer": "통일 신라 촌락 문서",
+    "questionIds": ["76-5"]
+  },
+  {
+    "id": "keyword-060",
+    "category": "politics",
+    "clue": "양길의 부하·왕건의 나주 점령 보고",
+    "answer": "궁예; 후고구려 → 마진 → 태봉",
+    "questionIds": ["71-12"]
+  },
+  {
+    "id": "keyword-061",
+    "category": "politics",
+    "clue": "5경·15부·고구려 계승",
+    "answer": "발해; 무왕 인안·문왕 대흥·선왕 건흥",
+    "questionIds": ["73-8", "75-8", "77-7", "79-7", "72-7"]
+  },
+  {
+    "id": "keyword-062",
+    "category": "politics",
+    "clue": "수신전·휼양전 폐지·직전법·간경도감",
+    "answer": "조선 세조; 악학궤범은 성종",
+    "questionIds": ["69-24", "77-20", "72-48"]
+  },
+  {
+    "id": "keyword-063",
+    "category": "politics",
+    "clue": "함길도 이시애의 난 진압",
+    "answer": "세조; 이징옥의 난은 단종",
+    "questionIds": ["74-20"]
+  },
+  {
+    "id": "keyword-064",
+    "category": "politics",
+    "clue": "집현전·삼강행실도·농사직설",
+    "answer": "세종; 홍문관·경국대전 완성은 성종",
+    "questionIds": ["79-19", "70-19"]
+  },
+  {
+    "id": "keyword-065",
+    "category": "politics",
+    "clue": "희빈 장씨 아들 원자 책봉·송시열 사사",
+    "answer": "숙종의 기사환국 (1689년)",
+    "questionIds": ["69-26", "72-26"]
+  },
+  {
+    "id": "keyword-066",
+    "category": "politics",
+    "clue": "이인좌의 난·탕평비·청계천 준천·속대전",
+    "answer": "영조; 금위영은 숙종",
+    "questionIds": ["75-24", "76-25"]
+  },
+  {
+    "id": "keyword-067",
+    "category": "politics",
+    "clue": "일성록·초계문신제·현륭원 행차",
+    "answer": "정조; 균역법·속대전은 영조",
+    "questionIds": ["73-19", "78-24"]
+  },
+  {
+    "id": "keyword-068",
+    "category": "politics",
+    "clue": "진주·박규수 안핵사·임술 농민 봉기",
+    "answer": "철종 (1862년)",
+    "questionIds": ["77-28"]
+  },
+  {
+    "id": "keyword-069",
+    "category": "politics",
+    "clue": "고경명·조헌·권율/황진 이치·김시민 진주성",
+    "answer": "임진왜란; 정문부는 북관대첩",
+    "questionIds": ["70-21", "76-21", "78-22"]
+  },
+  {
+    "id": "keyword-070",
+    "category": "politics",
+    "clue": "병산서원·훈련도감·대공수미법",
+    "answer": "류성룡, 임진왜란과 연결",
+    "questionIds": ["77-21"]
+  },
+  {
+    "id": "keyword-071",
+    "category": "politics",
+    "clue": "이괄의 난·공주 피란 → 병자호란·소현세자",
+    "answer": "둘 다 인조; 북벌론은 효종",
+    "questionIds": ["71-22", "69-23"]
+  },
+  {
+    "id": "keyword-072",
+    "category": "politics",
+    "clue": "남한산성·김상헌/최명길·삼전도 항복",
+    "answer": "병자호란; 후금 침입은 정묘호란",
+    "questionIds": ["72-24", "77-22", "69-23"]
+  },
+  {
+    "id": "keyword-073",
+    "category": "politics",
+    "clue": "대보단·숭정제·하정사/천추사",
+    "answer": "명과의 관계; 통신사는 일본, 역관은 통역",
+    "questionIds": ["73-22", "80-27", "72-22", "79-26"]
+  },
+  {
+    "id": "keyword-074",
+    "category": "politics",
+    "clue": "경성·경원 무역소·4군 6진",
+    "answer": "여진 대응; 4군 최윤덕·6진 김종서",
+    "questionIds": ["75-21"]
+  },
+  {
+    "id": "keyword-075",
+    "category": "politics",
+    "clue": "관료전/녹읍 폐지 → 전시과 → 과전법 → 직전법",
+    "answer": "신문왕 → 고려 경종 → 고려 말 → 세조",
+    "questionIds": ["72-47", "72-48"]
+  },
+  {
+    "id": "keyword-076",
+    "category": "politics",
+    "clue": "9서당 → 2군 6위 → 금위영 → 무위영",
+    "answer": "통일 신라 → 고려 → 숙종 → 개항기",
+    "questionIds": ["69-47"]
+  },
+  {
+    "id": "keyword-077",
+    "category": "politics",
+    "clue": "난전 성장·이현/칠패·신해통공",
+    "answer": "조선 후기; 정조가 육의전 외 금난전권 폐지",
+    "questionIds": ["74-27"]
+  },
+  {
+    "id": "keyword-078",
+    "category": "politics",
+    "clue": "상평통보·전황 / 구향·신향의 향전",
+    "answer": "조선 후기 화폐 경제 / 향촌 주도권 다툼",
+    "questionIds": ["78-25", "78-27"]
+  },
+  {
+    "id": "keyword-079",
+    "category": "politics",
+    "clue": "김부식의 아들 김돈중·고려 때 재해",
+    "answer": "신라 혜공왕 이후, 조선 경신대기근 이전",
+    "questionIds": ["77-12"]
+  },
+  {
+    "id": "keyword-080",
+    "category": "modern",
+    "clue": "해관 설치·관세 부과권",
+    "answer": "조미 수호 통상 조약 (1882년); 강화도 조약 부속 규칙은 무관세",
+    "questionIds": ["74-28"]
+  },
+  {
+    "id": "keyword-081",
+    "category": "modern",
+    "clue": "천주교 포교 인정·조불 수호 통상 조약",
+    "answer": "프랑스 (1886년)",
+    "questionIds": ["79-28"]
+  },
+  {
+    "id": "keyword-082",
+    "category": "modern",
+    "clue": "포츠머스 조약·독도 불법 편입·경부선 개통",
+    "answer": "러일 전쟁기 (1904~1905년)",
+    "questionIds": ["75-30", "74-34"]
+  },
+  {
+    "id": "keyword-083",
+    "category": "modern",
+    "clue": "묄렌도르프 고문·청의 개입 강화",
+    "answer": "임오군란 (1882년)",
+    "questionIds": ["77-31"]
+  },
+  {
+    "id": "keyword-084",
+    "category": "modern",
+    "clue": "경복궁 중건·원납전·병인양요",
+    "answer": "흥선 대원군 집권기; 김기수 수신사는 강화도 조약 이후",
+    "questionIds": ["76-29"]
+  },
+  {
+    "id": "keyword-085",
+    "category": "modern",
+    "clue": "교조 신원·보은 집회·포접제·황룡촌 전투",
+    "answer": "동학; 황룡촌은 동학 농민 운동",
+    "questionIds": ["75-29", "72-33"]
+  },
+  {
+    "id": "keyword-086",
+    "category": "modern",
+    "clue": "군국기무처·과거제 폐지",
+    "answer": "제1차 갑오개혁 (1894년)",
+    "questionIds": ["74-50"]
+  },
+  {
+    "id": "keyword-087",
+    "category": "modern",
+    "clue": "독립협회 중추원 개편 → 대한국 국제 → 대동단결 선언 → 제헌 헌법",
+    "answer": "1898 → 1899 → 1917 → 1948",
+    "questionIds": ["75-38"]
+  },
+  {
+    "id": "keyword-088",
+    "category": "modern",
+    "clue": "국산품 애용·조만식·평양·일본 상품 유입",
+    "answer": "물산 장려 운동; 대한매일신보는 국채 보상 운동",
+    "questionIds": ["69-35", "71-39", "73-44", "80-36"]
+  },
+  {
+    "id": "keyword-089",
+    "category": "modern",
+    "clue": "김원봉·황상규·조선 혁명 선언",
+    "answer": "의열단; 김구·윤봉길은 한인 애국단",
+    "questionIds": ["69-36", "74-38"]
+  },
+  {
+    "id": "keyword-090",
+    "category": "modern",
+    "clue": "연통제·교통국",
+    "answer": "대한민국 임시정부의 국내외 연락망",
+    "questionIds": ["74-37"]
+  },
+  {
+    "id": "keyword-091",
+    "category": "modern",
+    "clue": "안창호·양기탁·태극서관·대성학교·105인 사건",
+    "answer": "신민회; 샌프란시스코 흥사단은 안창호",
+    "questionIds": ["77-34", "78-35"]
+  },
+  {
+    "id": "keyword-092",
+    "category": "modern",
+    "clue": "박상진·대구·1915년",
+    "answer": "대한광복회; 복벽주의 독립의군부와 구별",
+    "questionIds": ["79-36"]
+  },
+  {
+    "id": "keyword-093",
+    "category": "modern",
+    "clue": "충칭·지청천·조선 의용대 일부 편입·OSS",
+    "answer": "한국광복군; 쌍성보는 한국독립군",
+    "questionIds": ["69-41", "75-43"]
+  },
+  {
+    "id": "keyword-094",
+    "category": "modern",
+    "clue": "청산리 → 쌍성보",
+    "answer": "북로군정서 등 → 지청천의 한국독립군; 영릉가는 조선혁명군",
+    "questionIds": ["80-37", "69-41"]
+  },
+  {
+    "id": "keyword-095",
+    "category": "modern",
+    "clue": "블라디보스토크·중앙아시아 강제 이주",
+    "answer": "러시아 연해주",
+    "questionIds": ["71-36"]
+  },
+  {
+    "id": "keyword-096",
+    "category": "modern",
+    "clue": "순종 국장일·학생 만세 시위",
+    "answer": "6·10 만세 운동 (1926년)",
+    "questionIds": ["78-38"]
+  },
+  {
+    "id": "keyword-097",
+    "category": "modern",
+    "clue": "사전 편찬·한글 맞춤법 통일안",
+    "answer": "조선어학회; 국문 연구소는 1907년",
+    "questionIds": ["79-42"]
+  },
+  {
+    "id": "keyword-098",
+    "category": "modern",
+    "clue": "미쓰코시 백화점·모던 걸/모던 보이",
+    "answer": "일제 강점기 도시 생활",
+    "questionIds": ["78-43"]
+  },
+  {
+    "id": "keyword-099",
+    "category": "modern",
+    "clue": "여운형·총독부 교섭·해방 직후",
+    "answer": "조선 건국 준비 위원회",
+    "questionIds": ["76-44"]
+  },
+  {
+    "id": "keyword-100",
+    "category": "modern",
+    "clue": "김구·김규식·유엔 위원단·남북 지도자 회담",
+    "answer": "남북 협상; 제헌 국회 구성 이전",
+    "questionIds": ["70-42"]
+  },
+  {
+    "id": "keyword-101",
+    "category": "modern",
+    "clue": "2·28·3·15·김주열·부정 선거",
+    "answer": "4·19 혁명 (1960년)",
+    "questionIds": ["74-46", "78-46"]
+  },
+  {
+    "id": "keyword-102",
+    "category": "modern",
+    "clue": "4·13 호헌 → 호헌 철폐·직선제 요구",
+    "answer": "6월 민주 항쟁 (1987년)",
+    "questionIds": ["72-46", "78-48"]
+  },
+  {
+    "id": "keyword-103",
+    "category": "modern",
+    "clue": "IMF 구제금융 조기 상환·외환위기 수습",
+    "answer": "김대중 정부",
+    "questionIds": ["74-48"]
+  },
+  {
+    "id": "keyword-104",
+    "category": "heritage",
+    "clue": "고려 서도·호경·조위총·동녕부",
+    "answer": "서경(평양); 묘청의 천도 운동",
+    "questionIds": ["69-11"]
+  },
+  {
+    "id": "keyword-105",
+    "category": "heritage",
+    "clue": "한성 → 웅진 → 사비",
+    "answer": "서울 → 공주 → 부여; 무령왕릉은 공주",
+    "questionIds": ["72-4"]
+  },
+  {
+    "id": "keyword-106",
+    "category": "heritage",
+    "clue": "왕·왕비의 신주를 모시는 사당",
+    "answer": "종묘; 사직은 토지·곡식의 신",
+    "questionIds": ["74-19"]
+  },
+  {
+    "id": "keyword-107",
+    "category": "heritage",
+    "clue": "돈덕전·고종 환궁·미소 공동위원회",
+    "answer": "덕수궁; 주합루·연경당은 창덕궁",
+    "questionIds": ["70-31", "80-24"]
+  },
+  {
+    "id": "keyword-108",
+    "category": "heritage",
+    "clue": "팔상전·무량수전·극락전·장경판전",
+    "answer": "법주사·부석사·봉정사·해인사",
+    "questionIds": ["70-22"]
+  },
+  {
+    "id": "keyword-109",
+    "category": "heritage",
+    "clue": "동래성·초량 왜관·백산상회",
+    "answer": "부산; 남강·김시민·형평 운동은 진주",
+    "questionIds": ["78-50", "80-50"]
+  }
+]
