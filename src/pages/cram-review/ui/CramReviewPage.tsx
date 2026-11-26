@@ -161,7 +161,7 @@ export function CramReviewPage() {
   // Keep the graded question visible until the user finishes reading its explanation.
   const [heldId, setHeldId] = useState<string>();
   const topic = params.get('topic') ?? 'all';
-  const filter = params.get('filter') ?? 'all';
+  const filter = params.get('filter') ?? 'remaining';
   const scope = ordered.filter((item) => topic === 'all' || item.group === topic);
   const filtered = scope.filter(
     (item) =>
@@ -223,7 +223,7 @@ export function CramReviewPage() {
         <h1 className="my-2 text-2xl font-bold">148문항 압축 복습</h1>
         <p className="text-xs leading-6 text-muted">
           제공한 오답·별표 148문항을 {reviewPack.groups.length}개 주제로 묶었어요. 단서 떠올리기 →
-          해설 확인 → 기억남·다시 보기 순서로 전부 복습하세요.
+          해설 확인 → 기억남·다시 보기 순서로 복습하세요. 기억남 문항은 기본 목록에서 제외됩니다.
         </p>
         <dl
           aria-label="148문항 채점 현황"
@@ -305,9 +305,9 @@ export function CramReviewPage() {
         </label>
         <div className="flex flex-wrap gap-2" aria-label="복습 범위">
           {[
-            ['all', '전체'],
-            ['remaining', '미완료만'],
+            ['remaining', '남은 문제'],
             ['again', '다시 보기만'],
+            ['all', '전체'],
           ].map(([value, label]) => (
             <button
               key={value}
@@ -369,10 +369,10 @@ export function CramReviewPage() {
       ) : null}
       <details className="mt-6 rounded-lg border border-line bg-card p-4">
         <summary className="cursor-pointer text-xs font-semibold">
-          현재 주제 문항 목록 ({scope.length}문항)
+          현재 복습 문항 목록 ({filtered.length}문항)
         </summary>
         <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-6">
-          {scope.map((item) => (
+          {filtered.map((item) => (
             <button
               key={item.id}
               className="secondary text-xs"
@@ -380,7 +380,6 @@ export function CramReviewPage() {
                 setHeldId(undefined);
                 setParams((previous) => {
                   const next = new URLSearchParams(previous);
-                  next.set('filter', 'all');
                   next.set('q', item.id);
                   return next;
                 });

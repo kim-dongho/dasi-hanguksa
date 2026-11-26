@@ -9,6 +9,52 @@ import { CramReviewPage } from '@/pages/cram-review';
 import { PracticePage } from '@/pages/practice';
 
 describe('148-question compressed review', () => {
+  it('does not restart the entire pack after all questions are remembered', () => {
+    localStorage.setItem(
+      'history-cram-review-148-v1',
+      JSON.stringify(Object.fromEntries(reviewPack.items.map((item) => [item.id, 'done']))),
+    );
+    render(
+      <MemoryRouter>
+        <CramReviewPage />
+      </MemoryRouter>,
+    );
+    expect(screen.getByText('현재 복습 문항 목록 (0문항)')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: '채점하기' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    expect(screen.getByText(/선택한 범위에 남은 문항이 없어요/)).toBeInTheDocument();
+  });
+  it('defaults to remaining questions and keeps remembered items out of navigation after reload', async () => {
+    const user = userEvent.setup();
+    localStorage.setItem(
+      'history-cram-review-148-v1',
+      JSON.stringify({ '69-10': 'done', '70-13': 'again' }),
+    );
+    const view = render(
+      <MemoryRouter initialEntries={['/review?q=69-10']}>
+        <CramReviewPage />
+      </MemoryRouter>,
+    );
+    expect(screen.getByRole('button', { name: '남은 문제' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    expect(screen.getByRole('heading', { name: '70회 13번' })).toBeInTheDocument();
+    expect(screen.getByText('현재 복습 문항 목록 (147문항)')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: '정답·핵심 단서 보기' }));
+    await user.click(screen.getByRole('button', { name: '기억남 →' }));
+    expect(screen.getByText('현재 복습 문항 목록 (146문항)')).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: '70회 13번' })).not.toBeInTheDocument();
+    view.unmount();
+    render(
+      <MemoryRouter>
+        <CramReviewPage />
+      </MemoryRouter>,
+    );
+    expect(screen.getByText('현재 복습 문항 목록 (146문항)')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: '전체' }));
+    expect(screen.getByText('현재 복습 문항 목록 (148문항)')).toBeInTheDocument();
+  });
   it('backfills the reported 93 graded questions without changing existing manual statuses', () => {
     const selected = reviewPack.items.slice(0, 93);
     const results = Object.fromEntries(
@@ -85,7 +131,7 @@ describe('148-question compressed review', () => {
       }),
     );
     localStorage.setItem('history-cram-review-148-v1', JSON.stringify({ '77-20': 'done' }));
-    const url = '/review?topic=joseon-kings&q=77-20';
+    const url = '/review?topic=joseon-kings&q=77-20&filter=all';
     const view = render(
       <MemoryRouter initialEntries={[url]}>
         <CramReviewPage />
@@ -135,7 +181,7 @@ describe('148-question compressed review', () => {
         'original-exam-questions-v1',
         JSON.stringify({ [id]: { selected: q.answer } }),
       );
-      const url = `/review?q=${id}`;
+      const url = `/review?q=${id}&filter=all`;
       const view = render(
         <MemoryRouter initialEntries={[url]}>
           <CramReviewPage />
@@ -256,14 +302,14 @@ describe('148-question compressed review', () => {
       </MemoryRouter>,
     );
     expect(
-      within(screen.getByRole('navigation', { name: '압축 복습 문제 이동' })).getByText('1 / 4'),
+      within(screen.getByRole('navigation', { name: '압축 복습 문제 이동' })).getByText('1 / 3'),
     ).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: '다시 보기만' }));
     expect(screen.getByRole('heading', { name: '69회 35번' })).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: '정답·핵심 단서 보기' }));
     await user.click(screen.getByRole('button', { name: '기억남 →' }));
     expect(screen.getByText(/선택한 범위에 남은 문항이 없어요/)).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: '미완료만' }));
+    await user.click(screen.getByRole('button', { name: '남은 문제' }));
     expect(screen.getByRole('heading', { name: '73회 44번' })).toBeInTheDocument();
     expect(
       within(screen.getByRole('navigation', { name: '압축 복습 문제 이동' })).getByText('1 / 2'),
