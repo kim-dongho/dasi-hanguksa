@@ -9,6 +9,58 @@ import { CramReviewPage } from '@/pages/cram-review';
 import { PracticePage } from '@/pages/practice';
 
 describe('148-question compressed review', () => {
+  it('counts only pack questions from the latest grades, separately from recall progress', async () => {
+    const user = userEvent.setup();
+    localStorage.setItem(
+      'original-exam-questions-v1',
+      JSON.stringify({
+        '69-10': { selected: 5 },
+        '77-20': { selected: 1 },
+        '80-1': { selected: 1 },
+      }),
+    );
+    localStorage.setItem('history-cram-review-148-v1', JSON.stringify({ '77-20': 'done' }));
+    const url = '/review?topic=joseon-kings&q=77-20';
+    const view = render(
+      <MemoryRouter initialEntries={[url]}>
+        <CramReviewPage />
+      </MemoryRouter>,
+    );
+    const expectStats = (count: string, rate: string) => {
+      const stats = within(screen.getByLabelText('148문항 채점 현황'));
+      expect(stats.getByText('채점').nextElementSibling).toHaveTextContent('2 / 148문항');
+      expect(stats.getByText('정답').nextElementSibling).toHaveTextContent(`${count} / 148문항`);
+      expect(stats.getByText('정답률 (채점 기준)').nextElementSibling).toHaveTextContent(rate);
+    };
+    expectStats('1', '50.0%');
+    await user.click(screen.getByRole('radio', { name: /^5번/ }));
+    await user.click(screen.getByRole('button', { name: '채점하기' }));
+    expectStats('2', '100.0%');
+    await user.click(screen.getByRole('button', { name: '다시 풀기' }));
+    await user.click(screen.getByRole('radio', { name: /^1번/ }));
+    await user.click(screen.getByRole('button', { name: '채점하기' }));
+    expectStats('1', '50.0%');
+    await user.selectOptions(screen.getByRole('combobox', { name: '주제' }), 'products');
+    expectStats('1', '50.0%');
+    view.unmount();
+    render(
+      <MemoryRouter>
+        <CramReviewPage />
+      </MemoryRouter>,
+    );
+    expectStats('1', '50.0%');
+  });
+  it('shows an ungraded state without counting unattempted questions as wrong', () => {
+    render(
+      <MemoryRouter>
+        <CramReviewPage />
+      </MemoryRouter>,
+    );
+    const stats = within(screen.getByLabelText('148문항 채점 현황'));
+    expect(stats.getByText('채점').nextElementSibling).toHaveTextContent('0 / 148문항');
+    expect(stats.getByText('정답').nextElementSibling).toHaveTextContent('0 / 148문항');
+    expect(stats.getByText('정답률 (채점 기준)').nextElementSibling).toHaveTextContent('—');
+  });
   it.each(['69-10', '77-20'])(
     'grades %s in the review card and saves its note across questions and remounts',
     async (id) => {

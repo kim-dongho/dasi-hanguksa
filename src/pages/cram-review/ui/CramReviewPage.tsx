@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { questions } from '@/entities/question';
 import { reviewPack, type ReviewItem } from '@/entities/review-pack';
 import { useStoredState } from '@/shared/lib';
-import { AnswerQuestion } from '@/features/answer-question';
+import { AnswerQuestion, useQuestionProgress } from '@/features/answer-question';
 import { QuestionMemo } from '@/features/choice-memo';
 
 type Progress = Record<string, 'done' | 'again'>;
@@ -143,6 +143,7 @@ function ReviewCard({
 
 export function CramReviewPage() {
   const [params, setParams] = useSearchParams();
+  const { results } = useQuestionProgress();
   const [raw, update, saved] = useStoredState<Progress>('history-cram-review-148-v1', empty);
   const progress = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : empty;
   const topic = params.get('topic') ?? 'all';
@@ -162,6 +163,11 @@ export function CramReviewPage() {
   const index = current ? filtered.indexOf(current) : -1;
   const done = ordered.filter((item) => progress[item.id] === 'done').length;
   const again = ordered.filter((item) => progress[item.id] === 'again').length;
+  const answered = ordered.filter((item) => results[item.id]).length;
+  const correct = ordered.filter(
+    (item) => results[item.id]?.selected === byId.get(item.id)!.answer,
+  ).length;
+  const accuracy = answered ? `${((correct / answered) * 100).toFixed(1)}%` : '—';
   const [notice, setNotice] = useState('');
   function navigate(id: string) {
     setParams(
@@ -198,6 +204,31 @@ export function CramReviewPage() {
         <p className="text-xs leading-6 text-muted">
           제공한 오답·별표 148문항을 {reviewPack.groups.length}개 주제로 묶었어요. 단서 떠올리기 →
           해설 확인 → 기억남·다시 보기 순서로 전부 복습하세요.
+        </p>
+        <dl
+          aria-label="148문항 채점 현황"
+          className="mt-4 flex flex-wrap gap-x-8 gap-y-3 rounded-lg border border-line bg-card px-4 py-3 text-xs tabular-nums"
+        >
+          <div>
+            <dt className="mb-1 text-[10px] text-muted">채점</dt>
+            <dd className="font-semibold">
+              {answered} / {ordered.length}문항
+            </dd>
+          </div>
+          <div>
+            <dt className="mb-1 text-[10px] text-muted">정답</dt>
+            <dd className="font-semibold text-moss">
+              {correct} / {ordered.length}문항
+            </dd>
+          </div>
+          <div>
+            <dt className="mb-1 text-[10px] text-muted">정답률 (채점 기준)</dt>
+            <dd className="font-semibold text-moss">{accuracy}</dd>
+          </div>
+        </dl>
+        <p className="mt-2 text-[10px] text-muted">
+          전체 148문항의 최근 채점 결과입니다. 정답률은 채점한 문항 기준이며, 기억남·다시 보기
+          표시와는 별개입니다.
         </p>
         <div
           className="my-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs"
