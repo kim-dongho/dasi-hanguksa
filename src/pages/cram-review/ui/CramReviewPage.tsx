@@ -17,9 +17,11 @@ const ordered = reviewPack.groups.flatMap((group) =>
 function ReviewCard({
   item,
   mark,
+  recordGrade,
 }: {
   item: ReviewItem;
   mark: (status: 'done' | 'again') => void;
+  recordGrade: (status: 'done' | 'again') => void;
 }) {
   const [revealed, setRevealed] = useState(false);
   const [graded, setGraded] = useState(false);
@@ -54,7 +56,8 @@ function ReviewCard({
           <AnswerQuestion
             question={question}
             hidePreviousResult={!graded}
-            onGrade={() => {
+            onGrade={(selected) => {
+              recordGrade(selected === question.answer ? 'done' : 'again');
               setGraded(true);
               setRevealed(true);
             }}
@@ -145,18 +148,32 @@ export function CramReviewPage() {
   const [params, setParams] = useSearchParams();
   const { results } = useQuestionProgress();
   const [raw, update, saved] = useStoredState<Progress>('history-cram-review-148-v1', empty);
-  const progress = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : empty;
+  const stored = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : empty;
+  const progress: Progress = {};
+  for (const item of ordered) {
+    const status = stored[item.id];
+    if (status === 'done' || status === 'again') progress[item.id] = status;
+    else if (results[item.id]) {
+      progress[item.id] =
+        results[item.id].selected === byId.get(item.id)!.answer ? 'done' : 'again';
+    }
+  }
+  // Keep the graded question visible until the user finishes reading its explanation.
+  const [heldId, setHeldId] = useState<string>();
   const topic = params.get('topic') ?? 'all';
   const filter = params.get('filter') ?? 'all';
   const scope = ordered.filter((item) => topic === 'all' || item.group === topic);
-  const filtered = scope.filter((item) =>
-    filter === 'again'
-      ? progress[item.id] === 'again'
-      : filter === 'remaining'
-        ? progress[item.id] !== 'done'
-        : true,
+  const filtered = scope.filter(
+    (item) =>
+      item.id === heldId ||
+      (filter === 'again'
+        ? progress[item.id] === 'again'
+        : filter === 'remaining'
+          ? progress[item.id] !== 'done'
+          : true),
   );
   const current =
+    filtered.find((item) => item.id === heldId) ??
     filtered.find((item) => item.id === params.get('q')) ??
     filtered.find((item) => progress[item.id] !== 'done') ??
     filtered[0];
@@ -170,6 +187,7 @@ export function CramReviewPage() {
   const accuracy = answered ? `${((correct / answered) * 100).toFixed(1)}%` : '—';
   const [notice, setNotice] = useState('');
   function navigate(id: string) {
+    setHeldId(undefined);
     setParams(
       (previous) => {
         const next = new URLSearchParams(previous);
@@ -182,6 +200,7 @@ export function CramReviewPage() {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
   function select(key: string, value: string) {
+    setHeldId(undefined);
     setParams((previous) => {
       const next = new URLSearchParams(previous);
       next.set(key, value);
@@ -192,6 +211,7 @@ export function CramReviewPage() {
   }
   function mark(status: 'done' | 'again') {
     if (!current) return;
+    setHeldId(undefined);
     update((previous) => ({ ...previous, [current.id]: status }));
     if (filtered[index + 1]) navigate(filtered[index + 1].id);
     else setNotice('목록의 마지막 문항입니다. 미완료·다시 보기에서 남은 문항을 확인하세요.');
@@ -227,8 +247,8 @@ export function CramReviewPage() {
           </div>
         </dl>
         <p className="mt-2 text-[10px] text-muted">
-          전체 148문항의 최근 채점 결과입니다. 정답률은 채점한 문항 기준이며, 기억남·다시 보기
-          표시와는 별개입니다.
+          정답률은 최근 채점 기준입니다. 채점하면 기억남·다시 보기에 자동 반영되며, 복습 후 직접
+          바꿀 수도 있습니다.
         </p>
         <div
           className="my-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs"
@@ -254,7 +274,8 @@ export function CramReviewPage() {
           />
         </div>
         <p className="mt-2 text-[10px] text-muted">
-          복습 진행·노트는 자동 저장됩니다. 채점하면 해당 문제의 풀이 기록이 갱신됩니다.
+          기존 채점 기록 중 복습 표시가 없는 문항도 자동 반영됩니다. 미완료에는 다시 보기 문항이
+          포함됩니다.
         </p>
         {!saved ? (
           <p role="alert" className="mt-2 text-xs text-accent">
@@ -304,7 +325,15 @@ export function CramReviewPage() {
       </div>
       {current ? (
         <>
-          <ReviewCard key={current.id} item={current} mark={mark} />
+          <ReviewCard
+            key={current.id}
+            item={current}
+            mark={mark}
+            recordGrade={(status) => {
+              setHeldId(current.id);
+              update((previous) => ({ ...previous, [current.id]: status }));
+            }}
+          />
           <nav
             aria-label="압축 복습 문제 이동"
             className="mt-4 flex items-center justify-between gap-3"
@@ -348,6 +377,7 @@ export function CramReviewPage() {
               key={item.id}
               className="secondary text-xs"
               onClick={() => {
+                setHeldId(undefined);
                 setParams((previous) => {
                   const next = new URLSearchParams(previous);
                   next.set('filter', 'all');

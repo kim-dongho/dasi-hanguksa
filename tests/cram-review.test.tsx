@@ -9,6 +9,71 @@ import { CramReviewPage } from '@/pages/cram-review';
 import { PracticePage } from '@/pages/practice';
 
 describe('148-question compressed review', () => {
+  it('backfills the reported 93 graded questions without changing existing manual statuses', () => {
+    const selected = reviewPack.items.slice(0, 93);
+    const results = Object.fromEntries(
+      selected.map((item, index) => {
+        const question = questions.find((q) => q.id === item.id)!;
+        return [item.id, { selected: index < 65 ? question.answer : (question.answer % 5) + 1 }];
+      }),
+    );
+    const manual = Object.fromEntries([
+      ...selected.slice(0, 61).map((item) => [item.id, 'done']),
+      ...selected.slice(65, 76).map((item) => [item.id, 'again']),
+    ]);
+    const original = JSON.stringify(manual);
+    localStorage.setItem('original-exam-questions-v1', JSON.stringify(results));
+    localStorage.setItem('history-cram-review-148-v1', original);
+    render(
+      <MemoryRouter>
+        <CramReviewPage />
+      </MemoryRouter>,
+    );
+    const stats = within(screen.getByLabelText('압축 복습 현황'));
+    expect(stats.getByText(/^기억남/)).toHaveTextContent('65문항');
+    expect(stats.getByText(/^다시 보기/)).toHaveTextContent('28문항');
+    expect(stats.getByText(/^미완료/)).toHaveTextContent('83문항');
+    expect(localStorage.getItem('history-cram-review-148-v1')).toBe(original);
+    expect(JSON.parse(localStorage.getItem('original-exam-questions-v1')!)).toEqual(results);
+  });
+  it.each(['again', 'remaining'])(
+    'synchronizes grades in the %s filter while keeping the current explanation visible',
+    async (filter) => {
+      const user = userEvent.setup();
+      const graded = Object.fromEntries(
+        reviewPack.items
+          .filter((item) => item.group === 'joseon-kings')
+          .map((item) => {
+            const question = questions.find((q) => q.id === item.id)!;
+            return [item.id, { selected: item.id === '77-20' ? 1 : question.answer }];
+          }),
+      );
+      localStorage.setItem('original-exam-questions-v1', JSON.stringify(graded));
+      const view = render(
+        <MemoryRouter initialEntries={[`/review?topic=joseon-kings&filter=${filter}`]}>
+          <CramReviewPage />
+        </MemoryRouter>,
+      );
+      expect(screen.getByRole('heading', { name: '77회 20번' })).toBeInTheDocument();
+      await user.click(screen.getByRole('radio', { name: /^5번/ }));
+      await user.click(screen.getByRole('button', { name: '채점하기' }));
+      expect(screen.getByRole('heading', { name: '77회 20번' })).toBeInTheDocument();
+      expect(screen.getByText('정답 · 3점')).toBeInTheDocument();
+      expect(screen.getByText('보기 5개 구별하기')).toBeInTheDocument();
+      expect(JSON.parse(localStorage.getItem('history-cram-review-148-v1')!)['77-20']).toBe('done');
+      await user.click(screen.getByRole('button', { name: '다시 보기 →' }));
+      expect(JSON.parse(localStorage.getItem('history-cram-review-148-v1')!)['77-20']).toBe(
+        'again',
+      );
+      view.unmount();
+      render(
+        <MemoryRouter initialEntries={['/review?filter=again']}>
+          <CramReviewPage />
+        </MemoryRouter>,
+      );
+      expect(screen.getByRole('heading', { name: '77회 20번' })).toBeInTheDocument();
+    },
+  );
   it('counts only pack questions from the latest grades, separately from recall progress', async () => {
     const user = userEvent.setup();
     localStorage.setItem(

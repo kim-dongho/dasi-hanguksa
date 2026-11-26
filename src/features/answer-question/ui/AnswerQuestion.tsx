@@ -11,7 +11,7 @@ export function AnswerQuestion({
 }: {
   question: Question;
   hidePreviousResult?: boolean;
-  onGrade?: () => void;
+  onGrade?: (selected: number) => void;
   onRetry: () => void;
 }) {
   const { results, answer, saved } = useQuestionProgress();
@@ -26,7 +26,7 @@ export function AnswerQuestion({
           event.preventDefault();
           if (selected) {
             answer(q.id, selected);
-            onGrade?.();
+            onGrade?.(selected);
             requestAnimationFrame(() => feedback.current?.focus({ preventScroll: true }));
           }
         }}
